@@ -1,0 +1,224 @@
+.tipsy { font-family:arial !important; font-size:13px !important; position: absolute; padding: 5px; z-index: 100000; }
+  .tipsy-inner { background-color: #000 !important; color: #FFF !important; max-width: 350px; padding: 5px 8px 4px 8px; text-align: center; font-family:arial !important; font-size:13px !important; opacity:1;top:-20px; }
+
+  /* Rounded corners */
+  .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+  
+  /* Uncomment for shadow */
+  /*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+  
+  .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #000; }
+  
+  /* Rules to colour arrows */
+  .tipsy-arrow-n { border-bottom-color: #000; }
+  .tipsy-arrow-s { border-top-color: #000; }
+  .tipsy-arrow-e { border-left-color: #000; }
+  .tipsy-arrow-w { border-right-color: #000; }
+  
+	.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+    .tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+  .tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+  .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+  
+  
+  
+  
+  
+  
+  
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip:hover {
+    color: #c00;
+    text-decoration: none;
+}
+
+.tooltip:hover:after {
+    background: #111;
+    background: rgba(0,0,0,.8);
+    border-radius: .5em;
+    bottom: 1.35em;
+    color: #fff;
+    content: attr(title);
+    display: block;
+    left: 1em;
+    padding: .3em 1em;
+    position: absolute;
+    text-shadow: 0 1px 0 #000;
+    white-space: nowrap;
+    z-index: 98;
+}
+
+.tooltip:hover:before {
+    border: solid;
+    border-color: #111 transparent;
+    border-color: rgba(0,0,0,.8) transparent;
+    border-width: .4em .4em 0 .4em;
+    bottom: 1em;
+    content: "";
+    display: block;
+    left: 2em;
+    position: absolute;
+    z-index: 99;
+}
+
+
+
+.vpb_tooltip_a .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+	font-family:arial;
+	font-size:14px;
+	color:#FFF;
+	padding:10px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.vpb_tooltip_a:hover .tooltiptext {
+    visibility: visible;
+}
+
+.vpb_tooltip_a .tooltiptext {
+    width: auto;
+	height:auto;
+    top: -26px;
+    left: auto;
+    margin-left: -3px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.vpb_tooltip_a .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.vpb_tooltip_a .tooltiptext {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.vpb_tooltip_a:hover .tooltiptext {
+    opacity: 1;
+}
+
+
+.vpb_ctooltip .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+	font-family:arial;
+	font-style:normal !important;
+	font-size:13px;
+	color:#FFF;
+	padding:6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.vpb_ctooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.vpb_ctooltip .tooltiptext {
+    width: auto;
+	height:auto;
+    top: -28px;
+    left: auto;
+    margin-left: -10px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.vpb_ctooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.vpb_ctooltip .tooltiptext {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.vpb_ctooltip:hover .tooltiptext {
+    opacity: 1;
+}
+
+
+.vpb_ttooltip .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+	font-family:arial;
+	font-style:normal !important;
+	font-size:13px;
+	color:#FFF;
+	padding:6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.vpb_ttooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.vpb_ttooltip .tooltiptext {
+    width: auto;
+	height:auto;
+    top: -28px;
+    left: auto;
+    margin-left: -17px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.vpb_ttooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.vpb_ttooltip .tooltiptext {
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.vpb_ttooltip:hover .tooltiptext {
+    opacity: 1;
+}
