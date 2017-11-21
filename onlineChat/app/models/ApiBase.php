@@ -7,6 +7,7 @@
  * Time: 10:25 AM
  */
 use GuzzleHttp\Client;
+
 abstract  class ApiBase
 {
     protected function getServiceClient() {

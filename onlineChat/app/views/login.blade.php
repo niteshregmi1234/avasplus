@@ -124,24 +124,24 @@
     <input type="hidden" id="empty_username_field" value="Please enter your account username in the required field to proceed.">
     <input type="hidden" id="empty_password_field" value="Please enter your account password in the required field to proceed.">
     @include("footer.footer")
-    <script type="text/javascript">
-        $(function() {
-            $("#ue_data").on("keydown", function(e) {
-                var search_term = $(this).val();
-                var keycode = (e.keyCode ? e.keyCode : e.which);
-                if(keycode == 13) {
-                    vpb_login();
-                    e.stopPropagation();
-                } else {}
-            });
-            $("#uep_data").on("keydown", function(e) {
-                var search_term = $(this).val();
-                var keycode = (e.keyCode ? e.keyCode : e.which);
-                if(keycode == 13) {
-                    vpb_login();
-                    e.stopPropagation();
-                } else {}
-            });
-        });
-    </script>
+    {{--<script type="text/javascript">--}}
+        {{--$(function() {--}}
+            {{--$("#ue_data").on("keydown", function(e) {--}}
+                {{--var search_term = $(this).val();--}}
+                {{--var keycode = (e.keyCode ? e.keyCode : e.which);--}}
+                {{--if(keycode == 13) {--}}
+                    {{--vpb_login();--}}
+                    {{--e.stopPropagation();--}}
+                {{--} else {}--}}
+            {{--});--}}
+            {{--$("#uep_data").on("keydown", function(e) {--}}
+                {{--var search_term = $(this).val();--}}
+                {{--var keycode = (e.keyCode ? e.keyCode : e.which);--}}
+                {{--if(keycode == 13) {--}}
+                    {{--vpb_login();--}}
+                    {{--e.stopPropagation();--}}
+                {{--} else {}--}}
+            {{--});--}}
+        {{--});--}}
+    {{--</script>--}}
 @stop

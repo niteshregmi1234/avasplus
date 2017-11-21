@@ -29,3 +29,4 @@ Route::get('/', function()
 //});
 Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@loginPost');
+Route::get('wall', 'AccountController@index');

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Config;
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
@@ -15,6 +15,7 @@ ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
 	app_path().'/controllers',
+    app_path().'/drivers',
 	app_path().'/models',
 	app_path().'/database/seeds',
 
@@ -48,7 +49,54 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+    // Since API errors can occur in any controller, define a global handler
+    // that redirects to login (if non-Ajax request)
+    // or returns status (Ajax) appropriately.
+
+    if($exception instanceof GuzzleHttp\Exception\RequestException && $exception->getResponse()) {
+        $apiStatus = $exception->getResponse()->getStatusCode();
+    } else if($exception instanceof GuzzleHttp\Exception\ConnectException) {
+        $apiStatus = 503; // service not available
+    } else {
+        $apiStatus = 500;
+    }
+
+    $apiRequestUnauthorized = $apiStatus == 401;
+    $notAuthenticated = $exception instanceof OnlineChatNotAuthenticatedException;
+
+    if($apiRequestUnauthorized || $notAuthenticated) {
+        if(Request::ajax()) {
+            // There is nothing an Ajax client can do at this point -
+            // the human will have to log in. There will need to be appropriate
+            // feedback for this in the UI, when an Ajax call fails;
+            // e.g. a lightbox with a link to the login page.
+            return Response::make('Unauthorized', 401);
+        } else {
+            if($apiRequestUnauthorized) {
+                Session::flash('error', 'Your session has reached its time limit. Please log in again to continue using the CLEAR application.');
+            }
+            return Redirect::guest('/login');
+        }
+    }
+
+    Log::error(get_class($exception)."|{$_SERVER['REQUEST_METHOD']}|{$_SERVER['REQUEST_URI']}|".Session::get('email'));
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        Log::error("Referrer: ".$_SERVER['HTTP_REFERER']);
+    }
+    // find the last point in application code and log the parameters used there
+    foreach ($exception->getTrace() as $trace) {
+        if (isset($trace['file']) && !empty($trace['args']) && false !== strpos($trace['file'], "onlineChat/app")) {
+            Log::error($trace['file']." : ".$trace['line']);
+            Log::error($trace['args']);
+            break;
+        }
+    }
+    Log::error($exception);
+
+    // Avoid default HTML error page for Ajax
+    if(Request::ajax()) {
+        return Response::make(Config::get('app.debug') ? $exception->getMessage() : 'Error', $apiStatus);
+    }
 });
 
 /*
@@ -79,3 +127,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+Auth::extend('onlineChatApi', function($app) {
+    return new \Illuminate\Auth\Guard(new OnlineChatApiUserProvider(), App::make('session.store'));
+});

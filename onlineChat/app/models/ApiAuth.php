@@ -9,6 +9,6 @@
 class ApiAuth extends AbstractApiClient
 {
     public function authBy($email, $pass, $ip, $ua) {
-        return $this->postNow('authByEmailPass', get_defined_vars());
+        return $this->postNow("authByEmailPass/_search?q=email:nregmi@deerwalk.com", get_defined_vars());
     }
 }

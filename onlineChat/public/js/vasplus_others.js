@@ -208,7 +208,6 @@ function vpb_change_password_now()
 // Users Login
 function vpb_login()
 {
-    console.log(vpb_site_url);
 	var ue_data = vpb_trim($("#ue_data").val());
 	var uep_data = vpb_trim($("#uep_data").val());
 	
@@ -244,11 +243,15 @@ function vpb_login()
 		
 		$.post(vpb_site_url+'login', dataString,  function(response)
 		{
+            console.log(response);
 			var vlog = JSON.parse(response); // this contains the json data from the php file
-			
+			console.log(vlog);
 			var vasplus_response_brougght_a = response.indexOf('user-is-validated');
+            console.log(vasplus_response_brougght_a);
+            console.log(response.indexOf('email'));
 			if(vasplus_response_brougght_a != -1)
 			{
+
 				if(vlog.fullname && vlog.email && vlog.passwd)
 				{
 					// Remember field was checked
@@ -279,7 +282,7 @@ function vpb_login()
 					else
 					{
 						setTimeout(function() {
-							window.location.replace(vpb_site_url+'feeds/'); 
+							window.location.replace(vpb_site_url+'wall');
 						},500);
 					}
 					$("#ue_data").val('');

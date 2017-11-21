@@ -6,6 +6,6 @@
  * Time: 10:29 AM
  */
 return array(
-    'serviceUrl' => 'http://localhost:8080',
+    'serviceUrl' => 'http://localhost:9200',
     'sslServiceHostname' => null, // Disable special request handling for SSL
 );

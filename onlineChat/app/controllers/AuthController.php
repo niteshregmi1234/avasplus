@@ -6,7 +6,7 @@
  * Date: 11/20/17
  * Time: 6:02 PM
  */
-class AuthController
+class AuthController extends BaseController
 {
     protected $authApi;
     public function __construct() {
@@ -17,15 +17,19 @@ class AuthController
         return View::make('login');
     }
     public function loginPost(){
-        var_dump("i am here");
-        die();
-        if (Auth::attempt(array('email' => Input::get('email'),
-            'pass'  => Input::get('password')))) {
-            return Redirect::intended('/wall');
-
-        }else{
-                Session::flash('error', 'Username/password are not correct');
-                return Redirect::to('/login');
+        if (Auth::attempt(array('email' => Input::get('ue_data')))) {
+            $arr=array(
+            "fullname"=>"nitesh regmi",
+            "email"=>"nregmi@deerwalk.com",
+            "passwd"=>"nitesh",
+            "user-is-validated"
+        );
+        echo json_encode($arr);
+        }
+        else{
+            $arr=array(
+                "error"=>"<div class=\"vwarning\">Sorry but it seems you provided incorrect information.<br>Please enter your valid details if you have an account to proceed otherwise, sign up.</div>");
+                echo json_encode($arr);
 
         }
     }

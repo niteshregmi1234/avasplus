@@ -24,12 +24,13 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+//$env = $app->detectEnvironment(array(
+//
+//	'local' => array('homestead'),
+//
+//));
 
-	'local' => array('homestead'),
-
-));
-
+$env = $app->detectEnvironment(function() { return getenv('STAGE') ?: 'local'; });
 /*
 |--------------------------------------------------------------------------
 | Bind Paths
