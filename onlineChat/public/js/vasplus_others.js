@@ -208,6 +208,7 @@ function vpb_change_password_now()
 // Users Login
 function vpb_login()
 {
+    console.log(vpb_site_url);
 	var ue_data = vpb_trim($("#ue_data").val());
 	var uep_data = vpb_trim($("#uep_data").val());
 	
@@ -241,7 +242,7 @@ function vpb_login()
 		$("#log_in_status").html('<center><div align="center"><img style="margin-top:-40px;" src="'+vpb_site_url+'img/loadings.gif" align="absmiddle"  alt="Loading" /></div></center>');
 		
 		
-		$.post(vpb_site_url+'wall-processor.php', dataString,  function(response) 
+		$.post(vpb_site_url+'login', dataString,  function(response)
 		{
 			var vlog = JSON.parse(response); // this contains the json data from the php file
 			
