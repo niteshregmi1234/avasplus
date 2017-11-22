@@ -71,7 +71,7 @@ class AuthController extends BaseController
           $arr=array("<div class=\"vwarning\">Sorry, the email: <b><?php Input::get('semail')?></b> has already been taken by someone else.<br>Please enter a different email of your choice in the required field to proceed.</div>");
           echo json_encode($arr);
         }else{
-              $this->authApi->signUpPost(Input::get('semail'),Input::get('spass'),Input::get('sfullname'),Input::get('vpb_ucounty'),Input::get("susername"));
+              $this->authApi->signUpPost(array('email' => Input::get('semail'),'password'=>Input::get('spass'),'fullName' => Input::get('sfullname'),'country'=>Input::get('vpb_ucounty'),"userName"=>Input::get("susername")));
         }
 
     }

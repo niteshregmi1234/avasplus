@@ -15,7 +15,7 @@ class ApiAuth extends AbstractApiClient
     public function signUpAuthBy($email) {
         return $this->getNow("authByEmailPass/_search?q=email:"."\"".$email."\"");
     }
-    public function signUpPost($email,$password) {
-        return $this->postNow("authByEmailPass/_search?q=_id:"."\"".$email.":".$password."\"");
+    public function signUpPost($credentials) {
+        return $this->postNow("authByEmailPass/_search?q=_id:"."\"".$credentials["email"].":".$credentials["password"]."\"");
     }
 }
