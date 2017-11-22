@@ -231,7 +231,7 @@ function vpb_login()
 	}
 	else
 	{
-		var dataString = {'ue_data':ue_data, 'uep_data':uep_data, 'page':'users-log-in'};
+		var dataString = {'ue_data':ue_data, 'uep_data':uep_data, "page":"user-log-in"};
 		
 		$("#this_page_errors").html('');
 		$("#disable_or_enable_this_box").removeClass('enable_this_box');
@@ -327,7 +327,8 @@ function vpb_login()
 
 // Validate email addresses
 function email_is_valid(email) {
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  // var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var regex=/^[a-zA-Z0-9]+[a-zA-Z0-9]+@gmail\.com$/;
   return regex.test(email);
 }
 
@@ -411,7 +412,7 @@ function vpb_sign_up()
 		$("#sign_up_status").html('<center><div align="center"><img style="margin-top:-40px;" src="'+vpb_site_url+'img/loadings.gif" align="absmiddle"  alt="Loading" /></div></center>');
 		
 			
-		$.post(vpb_site_url+'wall-processor.php', dataString,  function(response) 
+		$.post(vpb_site_url+'sign-up', dataString,  function(response)
 		{
 			$("#disable_or_enable_this_box").removeClass('disable_this_box');
 			$("#disable_or_enable_this_box").addClass('enable_this_box');

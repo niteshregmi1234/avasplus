@@ -36,23 +36,45 @@ class OnlineChatApiUserProvider implements UserProviderInterface
 
     public function retrieveByCredentials(array $credentials)
     {
+        try{
         // TODO: Implement retrieveByCredentials() method.
-//        var_dump("ia ma here");
-//        die();
+            if($credentials['page']=="user-log-in"){
         $resp = $this->authApi->authBy(
             $id = $credentials['email'],
-            "",
-            isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'],
-            isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
-//        Session::put($this->getSessionKey($id), $resp);
-//        Session::put('first_name', $resp['first_name']);
-//        Session::put('last_name', $resp['last_name']);
-//        Session::put('email', $credentials['email']);
-        return new OnlineChatUser($id, $resp);
+            $credentials['password']);
+            if(!empty($resp["hits"]["hits"])){
+                $respond=$resp["hits"]["hits"][0]["_source"];
+                Session::put($this->getSessionKey($id), $respond);
+                Session::put('fullName', $respond['fullName']);
+                Session::put('email', $credentials['email']);
+                Session::put('password', $credentials['password']);
+                return new OnlineChatUser($id, $respond);
+            }else{
+                return null;
+        }
+    }else{
+            $resp=$this->authApi->signUpAuthBy($id = $credentials['email']);
+            if(!empty($resp["hits"]["hits"])){
+                $respond=$resp["hits"]["hits"][0]["_source"];
+                return new OnlineChatUser($id, $respond);
+            }else{
+                return null;
+            }
+        }
+
+
+        }
+    catch(RequestException $exc) {
+        if($exc->getResponse() && $exc->getResponse()->getStatusCode() == 403) {
+            return null;
+        }
+        throw $exc;
+    }
     }
 
     public function validateCredentials(\Illuminate\Auth\UserInterface $user, array $credentials)
     {
         // TODO: Implement validateCredentials() method.
+        return true;
     }
 }

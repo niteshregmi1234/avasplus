@@ -25,16 +25,19 @@ class OnlineChatUser implements Illuminate\Auth\UserInterface
 
     public function getAuthIdentifier()
     {
+        return $this->id;
         // TODO: Implement getAuthIdentifier() method.
     }
 
     public function getAuthPassword()
     {
+        return null;
         // TODO: Implement getAuthPassword() method.
     }
 
     public function getRememberToken()
     {
+        return null;
         // TODO: Implement getRememberToken() method.
     }
 
@@ -45,6 +48,7 @@ class OnlineChatUser implements Illuminate\Auth\UserInterface
 
     public function getRememberTokenName()
     {
+        return null;
         // TODO: Implement getRememberTokenName() method.
     }
 }

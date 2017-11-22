@@ -27,6 +27,8 @@ Route::get('/', function()
 //{
 //    return View::make('forget-password');
 //});
+Route::get('wall', 'AccountController@index');
 Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@loginPost');
-Route::get('wall', 'AccountController@index');
+Route::get('sign-up', 'AuthController@signUp');
+Route::post('sign-up', 'AuthController@signUpPost');
