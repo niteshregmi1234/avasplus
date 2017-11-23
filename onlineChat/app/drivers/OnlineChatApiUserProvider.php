@@ -48,11 +48,12 @@ class OnlineChatApiUserProvider implements UserProviderInterface
                 Session::put('fullName', $respond['fullName']);
                 Session::put('email', $credentials['email']);
                 Session::put('password', $credentials['password']);
+                Session::put('userName',  $respond['userName']);
                 return new OnlineChatUser($id, $respond);
             }else{
                 return null;
         }
-    }else{
+    }else if($credentials['page']=="user-sign-up"){
             $resp=$this->authApi->signUpAuthBy($id = $credentials['email']);
             if(!empty($resp["hits"]["hits"])){
                 $respond=$resp["hits"]["hits"][0]["_source"];

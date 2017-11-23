@@ -209,12 +209,12 @@ function vpb_change_password_now()
 function vpb_login()
 {
 	var ue_data = vpb_trim($("#ue_data").val());
-	var uep_data = vpb_trim($("#uep_data").val());
+	var uep_data = $("#uep_data").val();
 	
-	if(ue_data == "" || ue_data == "Username")
+	if(ue_data == "" || ue_data == "Email")
 	{
 		$("#ue_data").focus();
-		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_username_field").val()+'</div>');
+		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_email_field").val()+'</div>');
 		$('html, body').animate({
 			scrollTop: $('#ue_data').offset().top-parseInt(200)+'px'
 		}, 1600);
@@ -252,37 +252,39 @@ function vpb_login()
 			if(vasplus_response_brougght_a != -1)
 			{
 
-				if(vlog.fullname && vlog.email && vlog.passwd)
+				if(vlog.fullname && vlog.email && vlog.passwd && vlog.username)
 				{
 					// Remember field was checked
 					if($("#vpb_checkbox").is(':checked')) {
-						 vpb_setcookie('session_user_datas', ue_data, 90);
+						 vpb_setcookie('session_user_datas', vlog.username, 90);
 						 vpb_setcookie('uep_datas', uep_data, 90);
+                        vpb_setcookie('ue_datas', ue_data, 90);
 					} 
 					else if(vpb_IE_detected())
 					{
-						vpb_setcookie('session_user_datas', ue_data, 90);
+						vpb_setcookie('session_user_datas', vlog.username, 90);
 						vpb_setcookie('uep_datas', uep_data, 90);
+                        vpb_setcookie('ue_datas', ue_data, 90);
 					}
 					else { }
 					
-					vpb_setcookie('session_user_data', ue_data, 90);
-					vpb_setcookie('user_status_data', ue_data, 90);
+					vpb_setcookie('session_user_data', vlog.username, 90);
+					// vpb_setcookie('user_status_data', ue_data, 90);
 					vpb_setcookie('csname', vlog.fullname, 90);
 					vpb_setcookie('csemail', vlog.email, 90);
 					vpb_setcookie('uep_data', uep_data, 90);
-					vpb_setcookie('vpb_ckpoint', vlog.passwd, 90);
+					// vpb_setcookie('vpb_ckpoint', vlog.passwd, 90);
 					
 					if(vpb_getcookie('last_visited_url') != "" && vpb_getcookie('last_visited_url') != null && vpb_getcookie('last_visited_url') != undefined)
 					{
 						setTimeout(function() {
-							window.location.replace(vpb_getcookie('last_visited_url')); 
+							window.location.replace(vpb_getcookie('last_visited_url/'));
 						},500);
 					}
 					else
 					{
 						setTimeout(function() {
-							window.location.replace(vpb_site_url+'wall');
+							window.location.replace(vpb_site_url+'wall/'+vlog.username);
 						},500);
 					}
 					$("#ue_data").val('');
@@ -328,10 +330,17 @@ function vpb_login()
 // Validate email addresses
 function email_is_valid(email) {
   // var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	var regex=/^[a-zA-Z0-9]+[a-zA-Z0-9]+@gmail\.com$/;
+	var regex=/^([a-z0-9]+)@gmail\.com$/;
   return regex.test(email);
 }
-
+function  fullname_is_valid(fullname) {
+	var regex=/^[a-z]+(\s)([a-z]+)$/;
+    return regex.test(fullname);
+}
+function  username_is_valid(username) {
+    var regex=/^([a-z]+)$/;
+    return regex.test(username);
+}
 
 function googleTranslateElementInit2() 
 {
@@ -349,7 +358,7 @@ function vpb_sign_up()
 {
 	var sfullname = $("#sfullname").val();
 	var susername = $("#susername").val();
-	var semail = $("#semail").val();
+	var semail = vpb_trim($("#semail").val());
 	var spass = $("#spass").val();
 	var vpb_ucounty = $("#vpb_ucounty").val();
 	
@@ -362,15 +371,28 @@ function vpb_sign_up()
 			scrollTop: $('#sfullname').offset().top-parseInt(200)+'px'
 		}, 1600);
 		return false;
-	}
-	else if(susername == "")
-	{
+	   }  else if( sfullname !="" && !fullname_is_valid(sfullname)){
+        $("#sfullname").focus();
+        $("#this_page_errors").html('<div class="vwarning">'+"Sorry, but that's not your correct fullname. Please enter your Firstname and Lastname in the fullname field so that there are no spaces at the beginning of firstname and at the end of lastname but should have only one space between firstname and lastname and both should be in small letter to proceed."+'</div>');
+        $('html, body').animate({
+            scrollTop: $('#sfullname').offset().top-parseInt(200)+'px'
+        }, 1600);
+        return false;
+	    }else if(susername == "")
+	    {
 		$("#susername").focus();
 		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_username_field").val()+'</div>');
 		$('html, body').animate({
 			scrollTop: $('#susername').offset().top-parseInt(200)+'px'
 		}, 1600);
 		return false;
+	}else if(susername != "" && !username_is_valid(susername)){
+        $("#susername").focus();
+        $("#this_page_errors").html('<div class="vwarning">'+"Sorry, but that's not your correct username. Please use small letters only  with no spaces at the beginning and end in the username field to proceed."+'</div>');
+        $('html, body').animate({
+            scrollTop: $('#susername').offset().top-parseInt(200)+'px'
+        }, 1600);
+        return false;
 	}
 	else if(semail == "")
 	{
@@ -416,15 +438,14 @@ function vpb_sign_up()
 		{
 			$("#disable_or_enable_this_box").removeClass('disable_this_box');
 			$("#disable_or_enable_this_box").addClass('enable_this_box');
-			
 			var response_brought = response.indexOf('process-completed-status');
 			if(response_brought != -1)
 			{
-				var responseData = response.split('|');
-				var checkPoint = responseData[1];
-				
-				if(checkPoint != "")
-				{
+				// var responseData = response.split('|');
+				// var checkPoint = responseData[1];
+				//
+				// if(checkPoint != "")
+				// {
 					$("#this_page_errors").html('');
 					
 					$("#sfullname").val('');
@@ -435,33 +456,36 @@ function vpb_sign_up()
 					
 					if(vpb_IE_detected())
 					{
+
 						vpb_setcookie('session_user_datas', susername, 90);
-						 vpb_setcookie('uep_datas', spass, 90);
+                        vpb_setcookie('ue_datas', semail, 90);
+						vpb_setcookie('uep_datas', spass, 90);
 					}
 					else { }
 					vpb_setcookie('session_user_data', susername, 90);
 					vpb_setcookie('uep_data', spass, 1);
-					vpb_setcookie('user_status_data', susername, 90);
+					// vpb_setcookie('user_status_data', susername, 90);
 					vpb_setcookie('csname', sfullname, 90);
 					vpb_setcookie('csemail', semail, 90);
-					vpb_setcookie('vpb_ckpoint', checkPoint, 90);
+					// vpb_setcookie('vpb_ckpoint', checkPoint, 90);
 					
 					setTimeout(function() {
-						window.location.replace(vpb_site_url+'feeds/'+susername); 
+						window.location.replace(vpb_site_url+'verification');
 					},500);
 					return false;
 				}
-				else
-				{
-					$("#sign_up_status").html('');
-					$("#signup_buttons").show();
-						
-					$("#this_page_errors").html('Sorry, there was a general system error. Please refresh this page and try again.');
-					return false;
-				}
-			}
+				// else
+				// {
+				// 	$("#sign_up_status").html('');
+				// 	$("#signup_buttons").show();
+				//
+				// 	$("#this_page_errors").html('Sorry, there was a general system error. Please refresh this page and try again.');
+				// 	return false;
+				// }
+			// }
 			else
 			{
+				console.log(response);
 				$("#sign_up_status").html('');
 				$("#signup_buttons").show();
 					
@@ -470,7 +494,7 @@ function vpb_sign_up()
 			}
 		}).fail(function(error_response) 
 		{
-			setTimeout("vpb_sign_up();", 2000);
+			setTimeout("vpb_sign_up();", 60000);
 		});
 	}
 }

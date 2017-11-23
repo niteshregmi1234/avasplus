@@ -86,6 +86,7 @@
                                 <input type="hidden" id="empty_username_field" value="Please enter a desired username in the required field to proceed.">
                                 <input type="hidden" id="empty_email_field" value="Please enter your email address in the required field to proceed.">
                                 <input type="hidden" id="invalid_email_field" value="Please enter a valid email address in the required field to proceed.">
+                                <input type="hidden" id="invalid_fullname_field" value="Please enter a valid fullname in the required field to proceed.">
                                 <input type="hidden" id="empty_password_field" value="Please enter a desired password in the required field to proceed.">
                                 <br clear="all">
 

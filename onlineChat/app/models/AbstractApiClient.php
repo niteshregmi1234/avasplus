@@ -23,7 +23,7 @@ class AbstractApiClient extends ApiBase
         }catch(Exception $e) {
             if($e->getResponse()) {
                 Log::error("HTTP ".$e->getRequest()->getMethod()." to ".$e->getResponse()->getEffectiveUrl().
-                    " fails with payload ".$e->getRequest()->getBody()->__toString());
+                    " fails with payload ".$e->getRequest()->getBody());
             } // else service is not available?
             throw $e;
 
