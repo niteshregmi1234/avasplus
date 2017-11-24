@@ -80,14 +80,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <br clear="all"> <br clear="all">
-
-            </div>
         </section>
     </div>
     @include("footer.footer")
-    <input type="hidden" style="text-transform:capitalize;" id="vpb_ucounty" value={{ $country }} />
 @stop

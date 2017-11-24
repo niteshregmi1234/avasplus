@@ -73,12 +73,20 @@ class AuthController extends BaseController
             $response="<div class=\"vwarning\">Sorry, the email address: <b>$email</b> is already in use with another account and duplicate email addresses are not allowed.<br>Please login with the existing account if you already have an account or enter a different email address to proceed.</div>";
             echo $response;
         }else{
-              $credentials=array('fullName' => Input::get('sfullname'),'userName' => Input::get('susername'),'email' => Input::get('semail'),'password'=>Input::get('spass'),'country'=>Input::get('vpb_ucounty'));
+              $credentials=array('fullName' => Input::get('sfullname'),'userName' => Input::get('susername'),'email' => Input::get('semail'),'password'=>Input::get('spass'),'country'=>Input::get('vpb_ucounty'),"process-completed-status"=>false);
               $is_email_exists=$this->authApi->validateEmail($credentials['email']);
               if($is_email_exists){
                   $this->authApi->signUpPost($credentials);
-                  $response["process-completed-status"]=true;
-                  echo json_encode($response);
+                  $this->authApi->sendMail($credentials['email']);
+//                  $response=$this->authApi->signUpAuthBy($credentials['email']);
+//                  if($response['hits']['hits'][0]['process-completed-status']){
+//                      $credentials['process-completed-status']=true;
+//                      $response="<div class=\"vwarning\">Sorry, the email address: <b>$email</b> is already in use with another account and duplicate email addresses are not allowed.<br>Please login with the existing account if you already have an account or enter a different email address to proceed.</div>";
+//                      echo $response;
+//                  }else{
+//
+//                  }
+//                  echo json_encode($response);
               }else{
                   $email=Input::get('semail');
                   $response="<div class=\"vwarning\">Sorry, we were unable to verify your email address: <b style=\"color:blue;\">$email</b><br>Please enter a working email address in the required email field to proceed.<br>Thank you.</div>";
