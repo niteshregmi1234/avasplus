@@ -7,7 +7,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"guzzlehttp/guzzle": "~5.0",
-		"swiftmailer/swiftmailer": "6.0.2"
+		"swiftmailer/swiftmailer": "~5.1",
+		"hmumyathein/php-mailer-bmh":"5.1.1",
+		"phpmailer/phpmailer": "~6.0"
 	},
 	"autoload": {
 		"classmap": [

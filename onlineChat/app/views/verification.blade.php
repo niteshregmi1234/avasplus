@@ -50,6 +50,7 @@
                         <div id="disable_or_enable_this_box" class="enable_this_box">
 
                             <div style=" padding:15px;" align="center">
+                                <form action="verification-post" method="post">
 
                                 <div class="input-group">
                                     <span class="input-group-addon" style="min-width:136px;">Enter verification code from gmail</span>
@@ -61,7 +62,7 @@
 
                                     <center>
                                         <div class="vthe_buttons" id="signup_buttons">
-                                            <div onClick="vpb_verification();" class="sbtn-success vthe_button">Submit</div>
+                                            <button  class="sbtn-success vthe_button">Submit</button>
                                             <a href="login" class="sbtn vthe_button">Back to Login</a>
 
                                         </div>
@@ -72,10 +73,10 @@
                                     </center>
 
                                     <div style="margin:0 auto; margin-top:0px;">
-                                        <div id="this_page_errors" align="center"></div>
+                                        <div id="this_page_errors" align="center">{{isset($message)?$message:""}}</div>
                                     </div>
 
-
+                                </form>
                                 </div>
                             </div>
                         </div>

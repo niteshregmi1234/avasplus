@@ -31,7 +31,7 @@ class SMTP_validateEmail {
     /**
      * SMTP Port
      */
-    var $port = 25;
+    var $port = 587;
     /**
      * Maximum Connection Time to wait for connection establishment per MTA
      */

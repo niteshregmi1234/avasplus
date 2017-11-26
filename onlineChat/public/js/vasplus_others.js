@@ -246,12 +246,12 @@ function vpb_login()
             console.log(response);
 			var vlog = JSON.parse(response); // this contains the json data from the php file
 			console.log(vlog);
-			var vasplus_response_brougght_a = response.indexOf('user-is-validated');
+			var vasplus_response_brougght_a = response.indexOf('processCompletedStatus');
             console.log(vasplus_response_brougght_a);
-            console.log(response.indexOf('email'));
 			if(vasplus_response_brougght_a != -1)
 			{
-
+                if(vlog.processCompletedStatus==true)
+                {
 				if(vlog.fullname && vlog.email && vlog.passwd && vlog.username)
 				{
 					// Remember field was checked
@@ -305,15 +305,21 @@ function vpb_login()
 						scrollTop: $('#uep_data').offset().top-parseInt(200)+'px'
 					}, 1600);
 				}
+
+                }else {
+                    setTimeout(function() {
+                        window.location.replace(vpb_site_url+'verification');
+                    },500);
+			}
 			}
 			else
 			{
 				$("#disable_or_enable_this_box").removeClass('disable_this_box');
 				$("#disable_or_enable_this_box").addClass('enable_this_box');
-		
+
 				$("#log_in_status").html('');
 				$("#login_buttoned").show();
-				
+
 				//$("#uep_data").focus();
 				$("#this_page_errors").html(vlog.error);
 				$('html, body').animate({
@@ -438,7 +444,7 @@ function vpb_sign_up()
 		{
 			$("#disable_or_enable_this_box").removeClass('disable_this_box');
 			$("#disable_or_enable_this_box").addClass('enable_this_box');
-			var response_brought = response.indexOf('process-completed-status');
+			var response_brought = response.indexOf('done-signup');
 			if(response_brought != -1)
 			{
 				// var responseData = response.split('|');

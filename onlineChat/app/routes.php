@@ -33,3 +33,5 @@ Route::post('login', 'AuthController@loginPost');
 Route::get('sign-up', 'AuthController@signUp');
 Route::post('sign-up', 'AuthController@signUpPost');
 Route::get('verification', 'AuthController@verification');
+Route::post('verification-post', 'AuthController@verificationPost');
+Route::get('forget-password', 'AuthController@forgetPassword');

@@ -54,7 +54,7 @@
                                 <div class="input-group">
                                     <span style="border-radius: 4px 0px 0px 0px;" class="input-group-addon"><i class="fa fa-user"></i></span>
                                     <div id="wrond_details" data-placement="top" align="center" style="width:100%;"></div>
-                                    <input type="text" style="min-width:100%;border-radius: 0px 4px 0px 0px;" class="form-control" name="ue_data" id="ue_data" value="" data-placement="top" autocomplete="off" placeholder="Enter your username here..."  required>
+                                    <input type="text" style="min-width:100%;border-radius: 0px 4px 0px 0px;" class="form-control" name="ue_data" id="ue_data" value="" data-placement="top" autocomplete="off" placeholder="Enter your Email here..."  required>
                                 </div>
 
 

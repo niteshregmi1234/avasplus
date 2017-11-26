@@ -49,6 +49,7 @@ class OnlineChatApiUserProvider implements UserProviderInterface
                 Session::put('email', $credentials['email']);
                 Session::put('password', $credentials['password']);
                 Session::put('userName',  $respond['userName']);
+                Session::put('processCompletedStatus',$respond['process-completed-status']);
                 return new OnlineChatUser($id, $respond);
             }else{
                 return null;

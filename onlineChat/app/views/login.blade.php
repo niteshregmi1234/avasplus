@@ -96,7 +96,7 @@
 
 
                                     <div style="margin:0 auto; margin-top:10px;">
-                                        <div id="this_page_errors" align="center">
+                                        <div id="this_page_errors" align="center">{{Session::has("message")?Session::get("message"):""}}
                                         </div>
                                     </div>
 
