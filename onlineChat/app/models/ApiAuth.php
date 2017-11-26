@@ -45,7 +45,7 @@ class ApiAuth extends AbstractApiClient
     public function sendMail($credentials) {
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
             ->setUsername('niteshxxkkiller@gmail.com')
-            ->setPassword('candycrush2');
+            ->setPassword('**************');
 
         $mailer = Swift_Mailer::newInstance($transport);
         $date= date("Y/m/d");
