@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title') Login @stop
+@section('title') New Password @stop
 @section('head')<style type="text/css">.form-control{ height:45px !important; padding:15px !important;}</style>@stop
 @section("content")
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
-                <a class="navbar-brand"  style="text-decoration:none; float:left;"><h2 class="vpb_wall_logo"><img src="logo/logo-vasplus.png" border="0" title="Nepal Chat" alt="Nepal Chat"></h2></a>
+                <a class="navbar-brand"  style="text-decoration:none; float:left;"><h2 class="vpb_wall_logo"><img src="/logo/logo-vasplus.png" border="0" title="Nepal Chat" alt="npChat"></h2></a>
 
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -35,7 +35,7 @@
                 <br clear="all">
                 <div class="the_row"><div class="vpb_top_titles" align="left">
                         <div style="float:left;" align="left">
-                            <i class="vpb_user_icon"></i> <span style="float:left; margin-top:0px;">Welcome back <b>Poiuyt123 poiuyt123</b></span></div>
+                            <i class="vpb_user_icon"></i> <span style="float:left; margin-top:0px;">Welcome back <b>{{$fullname}}</b></span></div>
 
                         <div style="float:right;" align="right">
                             <div class="cbtn" style="margin:0px; margin-right:5px; line-height:normal; padding:2px; padding-left:5px; padding-right:5px;" onclick="window.location.href='#';" title="Home"><i class="fa fa-home"></i></div>
@@ -52,7 +52,7 @@
 
                             <div style=" padding:15px;" align="center">
 
-                                <input type="hidden" name="ue_data" id="ue_data" value="poiuyt123">
+                                <input type="hidden" name="ue_data" id="ue_data" value={{$email}}>
 
                                 <div class="input-group">
                                     <span style="border-radius: 4px 0px 0px 0px;" class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -111,5 +111,4 @@
     <input type="hidden" id="verify_and_new_password_field_not_match_text" value="Passwords did not match. Both New Password and Verify Password fields must be the same to proceed.">
     <textarea id="password_changed_successfully_text" style="display:none;">Your password has been changed successfully.<br>You may now go back to the login page and then login with your new password.<br>Thank you.</textarea>
     @include("footer.footer")
-    <div class="vsuccess" align="left">Dear <b>Poiuyt123 poiuyt123</b>,<br>A link to enable you change your forgotten password has been sent to your email box.<br>Please check your email Inbox or your Spam box in case you did not see the mail in your Inbox to change your password.<br>Thank you.</div>
 @stop

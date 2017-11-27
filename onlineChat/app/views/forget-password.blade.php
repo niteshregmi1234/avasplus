@@ -7,7 +7,7 @@
         <div class="container">
             <div class="navbar-header">
 
-                <a class="navbar-brand"  style="text-decoration:none; float:left;"><h2 class="vpb_wall_logo"><img src="logo/logo-vasplus.png" border="0" title="Nepal Chat" alt="npChat"></h2></a>
+                <a class="navbar-brand"  style="text-decoration:none; float:left;"><h2 class="vpb_wall_logo"><img src="/logo/logo-vasplus.png" border="0" title="Nepal Chat" alt="npChat"></h2></a>
 
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -99,7 +99,4 @@
     <input type="hidden" id="verify_new_password_field_blank_text" value="Please verify your password in the required field to proceed.">
     <input type="hidden" id="verify_and_new_password_field_not_match_text" value="Passwords did not match. Both New Password and Verify Password fields must be the same to proceed.">
     <textarea id="password_changed_successfully_text" style="display:none;">Your password has been changed successfully.<br>You may now go back to the login page and then login with your new password.<br>Thank you.</textarea>
-
-
-
 @stop

@@ -87,10 +87,68 @@ class AuthController extends BaseController
               $credentials=array('fullName' => Input::get('sfullname'),'userName' => Input::get('susername'),'email' => Input::get('semail'),'password'=>Input::get('spass'),'country'=>Input::get('vpb_ucounty'),"process-completed-status"=>false);
               $is_email_exists=$this->authApi->validateEmail($credentials['email']);
               if($is_email_exists){
-//                  $this->authApi->signUpPost($credentials);
-                  $this->authApi->sendMail($credentials);
-                  $credentials["done-signup"]=true;
-                  echo json_encode($credentials);
+                  $date= date("Y/m/d");
+                  $dateWithTime = (new DateTime("now",new DateTimeZone("Asia/kathmandu")))->format("F j, Y, g:i:s a");
+                  $fullName=$credentials["fullName"];
+                  $userName=$credentials["userName"];
+                  $email=$credentials["email"];
+                  $code=md5(rand(1000,99999999));
+                  $credentials["code"]=$code;
+                  $body="<table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#ffffff\" style=\"border:10px solid #60a83a\">
+                     <tbody><tr>
+                     <td align=\"left\" valign=\"top\">
+                     <table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"border-bottom:1px solid #cccccc\">
+                     <tbody><tr>
+                     <td width=\"275\" align=\"left\" valign=\"middle\" style=\"padding:30px\">
+                     <font color=\"blue\">Nepal Chat</font>
+                     </td>
+                     <td width=\"255\" align=\"right\" valign=\"middle\" style=\"font-family:Arial;font-size:14px;color:#555555;padding:30px\">
+                     <strong>Date:</strong> $date </td>
+                     </tr>
+                     </tbody></table>
+                     </td>
+                     </tr>
+                     <tr>
+                     <td align=\"left\" valign=\"top\">
+                     <table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+                     <tbody><tr>
+                     <td colspan=\"3\" width=\"100%\" height=\"20\">&nbsp;
+                     </td>
+                     </tr>
+                     <tr>
+                     <td width=\"20\">&nbsp;</td>
+                     <td width=\"610\">
+                     <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullName,</p>
+                     </td>
+                     <td width=\"20\">&nbsp;</td>
+                     </tr>
+                     <tr>
+                     <td width=\"20\">&nbsp;</td>
+                     <td width=\"610\" style=\"font-family:Arial;font-size:14px;padding-bottom:20px\">
+                     <p style=\"font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#3e3e3e;line-height:24px\">Your account has been created successfully at Nepal Chat dated $dateWithTime.<br><br>
+                     
+                     Below are your account details.<br><br>
+                     
+                     Fullname: $fullName<br>
+                     Username: $userName<br>
+                     Email Address: $email<br>
+                     Password: The password you provided during your account creation.<br><br>
+                     
+                     Your Verification code is: <font color=\"blue\">$code</font> <br><br>
+                     
+                     Thank You!<br>
+                     Nepal Chat Support Team.<br></p>
+                     </td>
+                     <td width=\"20\"></td>
+                     </tr>
+                     </tbody></table>
+                     </td>
+                     </tr>
+                     </tbody></table>";
+                  $this->authApi->signUpPost($credentials);
+                  $this->authApi->sendMail($credentials,$body);
+                  $cred["done-signup"]=true;
+                  echo json_encode($cred);
 
               }else{
                   $email=Input::get('semail');
@@ -107,10 +165,12 @@ class AuthController extends BaseController
     }
     public function verificationPost(){
         $code=$_POST["verification_code"];
-        $is_data=$this->authApi->authByCode($code);
+        $codeName="code";
+        $is_data=$this->authApi->authByCode($codeName,$code);
         if(!empty($is_data["hits"]["hits"])) {
             if (!$is_data["hits"]["hits"][0]["_source"]["process-completed-status"]){
                 $is_data["hits"]["hits"][0]["_source"]["process-completed-status"]=true;
+                $is_data["hits"]["hits"][0]["_source"]["code"]=null;
                 $this->authApi->signUpPost($is_data["hits"]["hits"][0]["_source"]);
                 return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["userName"]);
 
@@ -123,5 +183,109 @@ class AuthController extends BaseController
     }
     public  function forgetPassword(){
         return View::make("forget-password");
+    }
+    public function forgetPasswordPost(){
+
+            $email=$_POST["ue_data"];
+            $is_data=$this->authApi->signUpAuthBy($email);
+            if(!empty($is_data["hits"]["hits"])) {
+                if (!$is_data["hits"]["hits"][0]["_source"]["process-completed-status"]){
+                    $response["processCompletedStatus"]=false;
+                    echo json_encode($response);
+                }else{
+                    $credentials=$is_data["hits"]["hits"][0]["_source"];
+                    $date= date("Y/m/d");
+                    $dateWithTime = (new DateTime("now",new DateTimeZone("Asia/kathmandu")))->format("F j, Y, g:i:s a");
+                    $fullName=$credentials["fullName"];
+                    $code=md5(rand(100,9999999999));
+                    $body="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+                               <tbody><tr>
+                               <td>
+                               <table width=\"650\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#ffffff\" style=\"border:10px solid #60a83a\">
+                               <tbody><tr>
+                               <td align=\"left\" valign=\"top\">
+                               <table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"border-bottom:1px solid #cccccc\">
+                               <tbody><tr>
+                               <td width=\"275\" align=\"left\" valign=\"middle\" style=\"padding:30px\">
+                               <font color=\"blue\">Nepal Chat</font>
+                               </td>
+                               <td width=\"255\" align=\"right\" valign=\"middle\" style=\"font-family:Arial;font-size:14px;color:#555555;padding:30px\">
+                               <strong>Date:</strong> $date </td>
+                               </tr>
+                               </tbody></table>
+                               </td>
+                               </tr>
+                               <tr>
+                               <td align=\"left\" valign=\"top\">
+                               <table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
+                               <tbody><tr>
+                               <td colspan=\"3\" width=\"100%\" height=\"20\">&nbsp;
+                               </td>
+                               </tr>
+                               <tr>
+                               <td width=\"20\">&nbsp;</td>
+                               <td width=\"610\">
+                               <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullName,</p>
+                               </td>
+                               <td width=\"20\">&nbsp;</td>
+                               </tr>
+                               <tr>
+                               <td width=\"20\">&nbsp;</td>
+                               <td width=\"610\" style=\"font-family:Arial;font-size:14px;padding-bottom:20px\">
+                               <p style=\"font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#3e3e3e;line-height:24px\">You have received this message as a result of the request made with your account username to send you a link to enable you change or reset your forgotten password at Nepal Chat dated $dateWithTime.<br><br>
+                               
+                               To change or reset your password, please click on the below link or copy the link to your web browser address bar and press the enter key on your computer keyboard but if you did not request for any password reset link then you can ignore this message.<br><br>
+                               
+                               <a href=\"http://localhost:8000/forget-password/$code\" style=\"color:blue\">Password Reset Link</a><br><br>
+                               
+                               
+                               Thank You!<br>
+                               Nepal Chat Support Team.<br></p>
+                               </td>
+                               <td width=\"20\"></td>
+                               </tr>
+                               </tbody></table>
+                               </td>
+                               </tr>
+                               </tbody></table>
+                               </td>
+                               </tr>
+                               </tbody></table>";
+                               $this->authApi->sendMail($credentials,$body);
+                               $credentials["password-reset-code"]=$code;
+                               $this->authApi->signUpPost($credentials);
+                               $response["processCompletedStatus"]=true;
+                               $response["response"]="<div class=\"vsuccess\" align=\"left\">Dear <b>$email</b>,<br>A link to enable you change your forgotten password has been sent to your email box.<br>Please check your email Inbox or your Spam box in case you did not see the mail in your Inbox to change your password.<br>Thank you.</div>";
+                               echo json_encode($response);
+                }
+            }
+        else{
+            $email=Input::get('ue_data');
+            $response["response"]="<div class=\"vwarning\">Sorry, the email: <b>$email</b> is invalid, please enter a valid email in the required field to proceed.</div>";
+            echo json_encode($response);
+        }
+    }
+    public function newPassword($code){
+        $codeName="password-reset-code";
+        $is_data=$this->authApi->authByCode($codeName,$code);
+        if(!empty($is_data["hits"]["hits"])) {
+            $credentials=$is_data["hits"]["hits"][0]["_source"];
+            $credentials["password-reset-code"]=null;
+            $this->authApi->signUpPost($credentials);
+            return View::make("new-password")->withFullname($credentials["fullName"])
+                                             ->withEmail($credentials["email"]);
+            }else{
+            return "Bad Request";
+        }
+    }
+    public function newPasswordPost(){
+            $email=$_POST("ue_data");
+            $newPasssword=$_POST("new_pass");
+            $is_data=$this->authApi->signUpAuthBy($email);
+            $credentials=$is_data["hits"]["hits"][0]["_source"];
+            $credentials["password"]=$newPasssword;
+            $this->authApi->signUpPost($credentials);
+            return View::make("new-password")->withFullname($credentials["fullName"])
+                ->withEmail($credentials["email"]);
     }
 }

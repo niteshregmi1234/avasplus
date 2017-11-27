@@ -50,11 +50,11 @@
                         <div id="disable_or_enable_this_box" class="enable_this_box">
 
                             <div style=" padding:15px;" align="center">
-                                <form action="verification-post" method="post">
+                                <form action="verification" method="post">
 
                                 <div class="input-group">
                                     <span class="input-group-addon" style="min-width:136px;">Enter verification code from gmail</span>
-                                    <input type="text" class="form-control" name="verification_code" id="verification_code" value=""  data-placement="top" autocomplete="off" required>
+                                    <input type="text" placeholder="Enter the verification code ... " class="form-control" name="verification_code" id="verification_code" value=""  data-placement="top" autocomplete="off" required>
                                 </div>
                                 <br clear="all">
                                     <input type="hidden" id="empty_password_field" value="Please enter a desired password in the required field to proceed.">

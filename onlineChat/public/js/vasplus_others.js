@@ -79,7 +79,7 @@ function vpb_request_password_link()
 		var dataString = {'ue_data': ue_data, 'page':'reset-password-validation'};
 		$.ajax({
 			type: "POST",
-			url: vpb_site_url+'wall-processor.php',
+			url: vpb_site_url+'forget-password',
 			data: dataString,
 			cache: false,
 			beforeSend: function() 
@@ -99,16 +99,26 @@ function vpb_request_password_link()
 				$("#log_in_status").html('');
 				$("#forgot_password_buttoned").show();
 					
-				var response_brought = response.indexOf("process-completed-status");
+				var response_brought = response.indexOf("processCompletedStatus");
+				console.log(response);
+				$vlog=JSON.parse(response);
+				console.log($vlog);
 				if(response_brought != -1)
 				{
-					$("#ue_data").val('');
-					$("#this_page_errors").html(response);
-					return false;
+					if($vlog.processCompletedStatus==true){
+                        $("#ue_data").val('');
+                        $("#this_page_errors").html($vlog.response);
+                        return false;
+					}else{
+                        setTimeout(function() {
+                        	window.alert("To change the password you first need to verify the account by entering the verification code which was sent to your gmail account earlier while sign up in the 'Enter the verification code ... ' field to proceed.");
+                            window.location.replace(vpb_site_url+'verification');
+                        },500);
+					}
 				}
 				else
 				{
-					$("#this_page_errors").html(response);
+					$("#this_page_errors").html($vlog.response);
 					return false;
 				}
 			}
@@ -165,7 +175,7 @@ function vpb_change_password_now()
 		var dataString = {'ue_data': ue_data, 'new_pass': new_pass, 'verify_pass': verify_pass, 'page':'change-user-password'};
 		$.ajax({
 			type: "POST",
-			url: vpb_site_url+'wall-processor.php',
+			url: vpb_site_url+'new-password',
 			data: dataString,
 			cache: false,
 			beforeSend: function() 
@@ -308,6 +318,7 @@ function vpb_login()
 
                 }else {
                     setTimeout(function() {
+                    	window.alert("Your account had already been created but not verified ,Please verify first to proceed.")
                         window.location.replace(vpb_site_url+'verification');
                     },500);
 			}
