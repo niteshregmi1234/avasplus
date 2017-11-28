@@ -9,6 +9,9 @@
 class AccountController extends BaseController
 {
     public function index() {
-            return View::make('account/wall');
+
+            return View::make('account/wall')->withEmail(Session::get('email'))
+                                             ->withFullname(Session::get('fullName'))
+                                             ->withUsername(Session::get('userName'));
     }
 }

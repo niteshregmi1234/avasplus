@@ -70,7 +70,7 @@
                                         <div class="vthe_buttons" id="forgot_password_buttoned">
                                             <div onClick="vpb_request_password_link();" class="sbtn-success vthe_button">Submit</div>
 
-                                            <a href="login" class="sbtn vthe_button">Back to Login</a>
+                                            <a href="/login" class="sbtn vthe_button">Back to Login</a>
 
                                         </div>
                                     </center><center>

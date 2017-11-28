@@ -21,6 +21,9 @@ class ApiAuth extends AbstractApiClient
     public function authByCode($codeName,$code) {
         return $this->getNow("authByEmailPass/_search?q=$codeName:"."\"".$code."\"");
     }
+    public function deleteOldRecordAfterChangingPass($credentials) {
+        return $this->deleteNow("authByEmailPass/".$credentials["email"].":".$credentials["password"]);
+    }
     public function validateEmail($email) {
         function get_curl($url)
         {

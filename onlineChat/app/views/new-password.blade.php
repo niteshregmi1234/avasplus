@@ -52,7 +52,7 @@
 
                             <div style=" padding:15px;" align="center">
 
-                                <input type="hidden" name="ue_data" id="ue_data" value={{$email}}>
+                                <input type="text" name="ue_data" id="ue_data" value={{$email}}>
 
                                 <div class="input-group">
                                     <span style="border-radius: 4px 0px 0px 0px;" class="input-group-addon"><i class="fa fa-lock"></i></span>

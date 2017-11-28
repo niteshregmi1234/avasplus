@@ -15,9 +15,9 @@
 </head>
 <body>
 @yield("content")
-@if(Session::has('error'))
-    <div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>
-@endif
+{{--@if(Session::has('error'))--}}
+    {{--<div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>--}}
+{{--@endif--}}
 {{ HTML::script('jquery/jquery.js') }}
 {{ HTML::script('js/jquery.easing.min.js') }}
 {{ HTML::script('bootstrap/js/bootstrap.min.js') }}

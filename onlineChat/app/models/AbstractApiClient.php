@@ -46,4 +46,21 @@ class AbstractApiClient extends ApiBase
 
         }
     }
+    public function deleteNow($resource) {
+        try {
+            $t0 = microtime(true);
+            $data = $this->client->delete($resource)->json();
+            $t1 = microtime(true);
+            Log::info('Resource Usage: ', ["message" => "|".sprintf("%6d", 1000*($t1-$t0))."|{$_SERVER['REQUEST_URI']}|$resource|"]);
+            return $data;
+
+        }catch(Exception $e) {
+            if($e->getResponse()) {
+                Log::error("HTTP ".$e->getRequest()->getMethod()." to ".$e->getResponse()->getEffectiveUrl().
+                    " fails with payload ".$e->getRequest()->getBody()->__toString());
+            } // else service is not available?
+            throw $e;
+
+        }
+    }
 }

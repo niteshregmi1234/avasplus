@@ -174,8 +174,8 @@ function vpb_change_password_now()
 	{
 		var dataString = {'ue_data': ue_data, 'new_pass': new_pass, 'verify_pass': verify_pass, 'page':'change-user-password'};
 		$.ajax({
+            url: vpb_site_url+'new-password',
 			type: "POST",
-			url: vpb_site_url+'new-password',
 			data: dataString,
 			cache: false,
 			beforeSend: function() 
@@ -195,7 +195,9 @@ function vpb_change_password_now()
 				$("#log_in_status").html('');
 				$("#login_buttoned").show();
 					
-				var response_brought = response.indexOf("process-completed-status");
+				var response_brought = response.indexOf("processCompletedStatus");
+                console.log(response);
+				// $vlog=JSON.parse(response);
 				if(response_brought != -1)
 				{
 					$("#new_pass").val('');
@@ -511,7 +513,7 @@ function vpb_sign_up()
 			}
 		}).fail(function(error_response) 
 		{
-			setTimeout("vpb_sign_up();", 60000);
+			setTimeout("vpb_sign_up();", 2000);
 		});
 	}
 }

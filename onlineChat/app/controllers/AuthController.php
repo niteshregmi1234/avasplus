@@ -279,13 +279,16 @@ class AuthController extends BaseController
         }
     }
     public function newPasswordPost(){
-            $email=$_POST("ue_data");
-            $newPasssword=$_POST("new_pass");
+
+            $email=Input::get("ue_data");
+            $newPasssword=Input::get("new_pass");
             $is_data=$this->authApi->signUpAuthBy($email);
             $credentials=$is_data["hits"]["hits"][0]["_source"];
+            $this->authApi->deleteOldRecordAfterChangingPass($credentials);
             $credentials["password"]=$newPasssword;
             $this->authApi->signUpPost($credentials);
-            return View::make("new-password")->withFullname($credentials["fullName"])
-                ->withEmail($credentials["email"]);
+            var_dump($email);
+            $response["processCompletedStatus"]=true;
+            echo json_encode($response);
     }
 }

@@ -3559,7 +3559,7 @@ function vpb_check_friends_requests()
 	
 	var dataString = {'username':session_uid, 'page':'check_for_friends_requests'};
 	
-	$.post(vpb_site_url+'wall-processor.php', dataString,  function(response) 
+	$.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
 	{
 		$("#totalReq").html(parseInt(response));
 		if(parseInt(response) > 0)
@@ -3576,8 +3576,8 @@ function vpb_check_friends_requests()
 		{
 			$("#friend_requests_counter").hide();
 		}
-		
-	}).fail(function(error_response) 
+
+	}).fail(function(error_response)
 	{
 		setTimeout("vpb_check_friends_requests();", 10000);
 	});
@@ -3587,10 +3587,10 @@ function vpb_check_friends_requests()
 function vpb_check_notifications()
 {
 	var session_uid = $("#session_uid").val(); //The username of the current logged in user
-	
+
 	var dataString = {'username':session_uid, 'page':'check_for_notifications'};
-	
-	$.post(vpb_site_url+'wall-processor.php', dataString,  function(response) 
+
+	$.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
 	{
 		$("#totalNotifi").html(parseInt(response));
 		if(parseInt(response) > 0)
@@ -3607,8 +3607,8 @@ function vpb_check_notifications()
 		{
 			$("#notifications_counter").hide();
 		}
-		
-	}).fail(function(error_response) 
+
+	}).fail(function(error_response)
 	{
 		setTimeout("vpb_check_notifications();", 10000);
 	});
@@ -3618,13 +3618,13 @@ function vpb_check_notifications()
 function vpb_check_a_new_messages()
 {
 	var session_username = $("#session_uid").val();
-	
+
 	if ( session_username != "")
 	{
 		var dataString = {"username": session_username, "page":"check_a_new_messages"};
-		$.ajax({  
-			type: "POST",  
-			url: vpb_site_url+'wall-processor.php',  
+		$.ajax({
+			type: "POST",
+			url: vpb_site_url+'wall-processor.php',
 			data: dataString,
 			beforeSend: function() {},  
 			success: function(response)
