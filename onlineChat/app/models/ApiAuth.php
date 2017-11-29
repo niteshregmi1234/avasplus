@@ -8,7 +8,7 @@
  */
 class ApiAuth extends AbstractApiClient
 {
-    public $userExistsVar;
+
     public function authBy($email, $password) {
         return $this->getNow("authByEmailPass/_search?q=_id:"."\"".$email.":".$password."\"");
     }

@@ -1,4 +1,4 @@
-<div id="updateProfilePicc">
+<div id="updateProfilePic">
     <div class="profilephoto_wrap">
         <div class="vprofilephoto" style="background-image: url('/img/avatar.gif');" onClick="vpb_popup_photo_box('{{$username}}', '1', '1', '/img/avatar.gif');">
         </div>

@@ -49,8 +49,8 @@
                 <li class="user-d-s">
                     <a href="/wall/{{$username}}" id="o_p_page_first_name" title="{{$fullname}}">
                         <div class="vpb_profile_picture_icon_wrapper">
-                            <span id="vp_profile_photo"><img src="/img/avatar.gif" border="0" width="30" height="26" align="absmiddle" /></span>
-                            <span id="p_page_first_name">{{$username}}...</span>
+                            <span id="vp_profile_photo"><img src="http://www.vasplus.info/photos/1511856000440826458.png" border="0" width="30" height="26" align="absmiddle" /></span>
+                            <span id="p_page_first_name">{{explode(" ",$fullname)[0]}}</span>
                             <div style="clear:both;"></div>
                         </div>
                     </a>
@@ -62,9 +62,9 @@
 
 
                     <a style="margin-top:4px;text-decoration:none !important;" class="dropdown open">
-                        <i id="v_friend_requests" class="fa fa-group vpb_notifications_icon vasplus_tooltip_notify" title="Friend Requests" onclick="vpb_show_friend_requests_menu();"></i>
+                        <i id="v_friend_requests" class="fa fa-users vpb_notifications_icon vasplus_tooltip_notify" title="Friend Requests" onclick="vpb_show_friend_requests_menu();"></i>
                     </a>
-                    <span id="friend_requests_counter" class="vpb_notifyCounter" style="display: inline-block;"><span id="totalReq">1</span></span>
+                    <span id="friend_requests_counter" class="vpb_notifyCounter" style="display:none;"><span id="totalReq">0</span></span>
 
                     <ul id="v_friend_requests_box" class="dropdown-menu bullet pull-right vasplus_bosy" style="right: 8px; left: auto; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;min-width:460px !important;max-width:460px !important; width:100% !important;" aria-labelledby="v_friend_requests">
                         <li class="dropdown-header">
@@ -72,7 +72,7 @@
                             <div style="float:left;">Friend Requests</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span id="view_all_friend_req"><span class="vpb_hover_b" onclick="vpb_show_all_friend_requests('{{$email}}');">View All</span>&nbsp;&nbsp;|&nbsp;&nbsp;</span> <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('abcdefgh123');">Find Friend</span>
+                                <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('poiuyt123');">Find Friend</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>
@@ -96,7 +96,7 @@
                             <div style="float:left;">Notifications</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('{{$email}}');">View All</span>
+                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('poiuyt123');">View All</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>
@@ -150,12 +150,7 @@
                 </li>
 
 
-                <li>
-                    <div style="margin-top:19px;" align="center"><select id="vsource" onchange="doGTranslate(this);"><option value="">Language</option><option value="en|en">English</option><option value="en|af">Afrikaans</option><option value="en|sq">Albanian</option><option value="en|ar">Arabic</option><option value="en|hy">Armenian</option><option value="en|az">Azerbaijani</option><option value="en|eu">Basque</option><option value="en|be">Belarusian</option><option value="en|bg">Bulgarian</option><option value="en|ca">Catalan</option><option value="en|zh-CN">Chinese (Simplified)</option><option value="en|zh-TW">Chinese (Traditional)</option><option value="en|hr">Croatian</option><option value="en|cs">Czech</option><option value="en|da">Danish</option><option value="en|nl">Deutsch</option><option value="en|et">Estonian</option><option value="en|tl">Filipino</option><option value="en|fi">Finnish</option><option value="en|fr">French</option><option value="en|gl">Galician</option><option value="en|ka">Georgian</option><option value="en|de">German</option><option value="en|el">Greek</option><option value="en|ht">Haitian Creole</option><option value="en|iw">Hebrew</option><option value="en|hi">Hindi</option><option value="en|hu">Hungarian</option><option value="en|is">Icelandic</option><option value="en|id">Indonesian</option><option value="en|ga">Irish</option><option value="en|it">Italian</option><option value="en|ja">Japanese</option><option value="en|ko">Korean</option><option value="en|lv">Latvian</option><option value="en|lt">Lithuanian</option><option value="en|mk">Macedonian</option><option value="en|ms">Malay</option><option value="en|mt">Maltese</option><option value="en|ne">Nepali</option><option value="en|no">Norwegian</option><option value="en|fa">Persian</option><option value="en|pl">Polish</option><option value="en|pt">Portuguese</option><option value="en|ro">Romanian</option><option value="en|ru">Russian</option><option value="en|sr">Serbian</option><option value="en|sk">Slovak</option><option value="en|sl">Slovenian</option><option value="en|es">Spanish</option><option value="en|sw">Swahili</option><option value="en|sv">Swedish</option><option value="en|th">Thai</option><option value="en|tr">Turkish</option><option value="en|uk">Ukrainian</option><option value="en|ur">Urdu</option><option value="en|vi">Vietnamese</option><option value="en|cy">Welsh</option><option value="en|yi">Yiddish</option></select>
-
-                        <div id="google_translate_element2"></div>
-                    </div>
-                </li>
+                <li><div style="margin-top:19px;" align="center"><select id="vsource" onchange="doGTranslate(this);"><option value="">Language</option><option value="en|en">English</option><option value="en|af">Afrikaans</option><option value="en|sq">Albanian</option><option value="en|ar">Arabic</option><option value="en|hy">Armenian</option><option value="en|az">Azerbaijani</option><option value="en|eu">Basque</option><option value="en|be">Belarusian</option><option value="en|bg">Bulgarian</option><option value="en|ca">Catalan</option><option value="en|zh-CN">Chinese (Simplified)</option><option value="en|zh-TW">Chinese (Traditional)</option><option value="en|hr">Croatian</option><option value="en|cs">Czech</option><option value="en|da">Danish</option><option value="en|nl">Deutsch</option><option value="en|et">Estonian</option><option value="en|tl">Filipino</option><option value="en|fi">Finnish</option><option value="en|fr">French</option><option value="en|gl">Galician</option><option value="en|ka">Georgian</option><option value="en|de">German</option><option value="en|el">Greek</option><option value="en|ht">Haitian Creole</option><option value="en|iw">Hebrew</option><option value="en|hi">Hindi</option><option value="en|hu">Hungarian</option><option value="en|is">Icelandic</option><option value="en|id">Indonesian</option><option value="en|ga">Irish</option><option value="en|it">Italian</option><option value="en|ja">Japanese</option><option value="en|ko">Korean</option><option value="en|lv">Latvian</option><option value="en|lt">Lithuanian</option><option value="en|mk">Macedonian</option><option value="en|ms">Malay</option><option value="en|mt">Maltese</option><option value="en|no">Norwegian</option><option value="en|fa">Persian</option><option value="en|pl">Polish</option><option value="en|pt">Portuguese</option><option value="en|ro">Romanian</option><option value="en|ru">Russian</option><option value="en|sr">Serbian</option><option value="en|sk">Slovak</option><option value="en|sl">Slovenian</option><option value="en|es">Spanish</option><option value="en|sw">Swahili</option><option value="en|sv">Swedish</option><option value="en|th">Thai</option><option value="en|tr">Turkish</option><option value="en|uk">Ukrainian</option><option value="en|ur">Urdu</option><option value="en|vi">Vietnamese</option><option value="en|cy">Welsh</option><option value="en|yi">Yiddish</option></select><div id="google_translate_element2"></div></div></li>
 
                 <li class="vp_ul_wrap"><a style="margin-top:4px;text-decoration:none !important;" class="dropdown open">
 
@@ -171,7 +166,7 @@
                             <li><a href="javascript:void(0);" data-backdrop="static" data-toggle="modal" data-target="#update-password" onclick="vpb_hide_profile_popups();"><i class="fa fa-edit"></i> Reset Password</a></li>
 
 
-                            <li><a href="javascript:void(0);" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"onclick="vpb_hide_profile_popups();"><i class="fa fa-camera"></i> Change Photo</a></li>
+                            <li><a href="javascript:void(0);" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"onclick="vpb_hide_profile_popups();"><i class="fa fa-camera"></i> Update Photo</a></li>
 
                             <li><a href="javascript:void(0);" onClick="vpb_show_timezone_box();"><i class="fa fa-clock-o"></i> Update Timezone</a></li>
 
@@ -185,13 +180,12 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0);" data-backdrop="static" data-toggle="modal" data-target="#logout-confirmation" onclick="vpb_hide_profile_popups();"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
-                    </a>
-                </li>
+                    </a></li>
             </ul>
-            <input type="hidden" id="enable_or_disable_chat_box" value="0" />
-        </div>
+            <input type="hidden" id="enable_or_disable_chat_box" value="0" />		</div>
     </div>
 </nav>
+<!-- Navigation Ends -->
 @yield("content")
 
 {{ HTML::script('jquery/jquery.js') }}
@@ -209,5 +203,6 @@
 {{--{{ HTML::script('js/vasplus_vchat.js') }}--}}
 {{ HTML::script('js/vasplus_wall.js') }}
 @yield('pageScripts', '')
+<div class="post_box_bg" onClick="vpb_close_post_box();"></div>
 </body>
 </html>

@@ -38,7 +38,7 @@
 
             <div class="modal-footer" style="padding-top:10px; padding-bottom:10px;">
                 <span class="cbtn" data-dismiss="modal" style=" margin-top:0px; margin-right:20px;" onclick="document.getElementById('profile_pics').title = '';">Close</span>
-                <span class="btn btn-default btn btn-success btn-wall-continue" style="padding-top:5px; padding-bottom:7px;" onClick="vpb_update_profile_picture('abcdefgh123');">Save changes</span>
+                <span class="btn btn-default btn btn-success btn-wall-continue" style="padding-top:5px; padding-bottom:7px;" onClick="vpb_update_profile_picture({{$username}});">Save changes</span>
             </div>
         </div>
     </div>

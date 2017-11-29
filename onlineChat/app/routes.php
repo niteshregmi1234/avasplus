@@ -38,3 +38,5 @@ Route::get('forget-password', 'AuthController@forgetPassword');
 Route::post('forget-password', 'AuthController@forgetPasswordPost');
 Route::get('forget-password/{code}', 'AuthController@newPassword');
 Route::post('new-password', 'AuthController@newPasswordPost');
+
+Route::post('update-profile-pic', 'AccountController@updateProfilePic');

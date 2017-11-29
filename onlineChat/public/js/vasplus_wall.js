@@ -4712,7 +4712,7 @@ function vpb_update_profile_picture(my_identity)
     }
     else
     {
-        vpb_security_check_points();
+        // vpb_security_check_points();
 
         $("#vpb_adding_profile_photo_status").html('');
         $('.vpb_progress_outer_bar').show();
@@ -4721,9 +4721,10 @@ function vpb_update_profile_picture(my_identity)
         formData.append("page", 'update-user-photo');
         formData.append("userid", my_identity);
         formData.append("profilepic", document.getElementById('profile_pic').files[0]);
+        console.log(formData);
 
         $.ajax({
-            url: vpb_site_url+'wall-processor.php',
+            url: vpb_site_url+'update-profile-pic',
             type: 'POST',
             data: formData,
             cache: false,
@@ -4774,28 +4775,30 @@ function vpb_update_profile_picture(my_identity)
             success: function(response)
             {
                 var response_brought = response.indexOf('completed');
+                var vlog=JSON.parse(response)
                 if(response_brought != -1)
                 {
-                    var upic = response.split('&');
+                    // var upic = response.split('&');
+                    var upic = vlog.profilePicName;
                     document.getElementById('profile_pics').title = '';
                     document.getElementById('profile_pic').value = '';
                     $('#vpb-display-profile-photo-preview').html('');
 
                     $("#vpb_adding_profile_photo_status").html('<div class="vsuccess">'+$('#successfully_updated_profile_photo_text').val()+'</div>');
                     setTimeout(function() {
-                        $("#vp_profile_photo").html('<img src="'+vpb_site_url+'photos/'+upic[0]+'" border="0" width="30" height="26" align="absmiddle">');
+                        $("#vp_profile_photo").html('<img src="'+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+'" border="0" width="30" height="26" align="absmiddle">');
 
-                        $("#vp_profile_wall_photo").html('<img src="'+vpb_site_url+'photos/'+upic[0]+'" border="0" width="40" height="40" align="absmiddle">');
+                        $("#vp_profile_wall_photo").html('<img src="'+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+'" border="0" width="40" height="40" align="absmiddle">');
 
                         if($("#page_id").val() == "group")
                         {
-                            $("#vp_user_photo_on_group_page").html('<img src="'+vpb_site_url+'photos/'+upic[0]+'" border="0" width="30" height="26" align="absmiddle">');
+                            $("#vp_user_photo_on_group_page").html('<img src="'+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+'" border="0" width="30" height="26" align="absmiddle">');
                         }
                         else
                         {
                             if(my_identity == vpb_page_owner)
                             {
-                                $("#updateProfilePic").html('<div class="profilephoto_wrap"><div class="vprofilephoto" style="background-image: url('+vpb_site_url+'photos/'+upic[0]+');" onclick="vpb_popup_photo_box(\''+my_identity+'\', 1, 1, \''+vpb_site_url+'photos/'+upic[0]+'\');"></div><div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div></div>');
+                                $("#updateProfilePic").html('<div class="profilephoto_wrap"><div class="vprofilephoto" style="background-image: url('+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+');" onclick="vpb_popup_photo_box(\''+my_identity+'\', 1, 1, \''+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+'\');"></div><div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div></div>');
                             }
                             else {}
                         }
