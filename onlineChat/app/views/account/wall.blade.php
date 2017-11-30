@@ -48,7 +48,11 @@
 
                             <div id="updateProfilePic">
                                 <div class="profilephoto_wrap">
-                                    <div class="vprofilephoto" style="background-image: url('http://www.vasplus.info/photos/1511856000440826458.png');" onClick="vpb_popup_photo_box('poiuyt123', '1', '1', 'http://www.vasplus.info/photos/1511856000440826458.png');">
+                                    <?php if(empty($profile_pic_name)){?>
+                                        <div class="vprofilephoto" style="background-image: url('/img/avatar.gif');" onClick="vpb_popup_photo_box('{{$email}}', '1', '1', '/img/avatar.gif');">
+                                    <?php } else {?>
+                                        <div class="vprofilephoto" style="background-image: url('/users/{{$email}}/profilePictures/{{$profile_pic_name}}');" onClick="vpb_popup_photo_box('{{$email}}', '1', '1', '/users/{{$email}}/profilePictures/{{$profile_pic_name}}');">
+                                    <?php }?>
                                     </div>
                                     <div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div>
 
@@ -234,7 +238,7 @@
                                             <input type="hidden" id="vpb_total_group_videos_per_load" value="15">
                                             <input type="hidden" id="vtotal_status_updates" value="0">
                                             <input type="hidden" id="vtotal_status_updates_by_comments" value="0">
-                                            <input type="hidden" id="session_uid" value="poiuyt123">
+                                            <input type="hidden" id="session_uid" value="{{$email}}">
                                             <input type="hidden" id="from_username_identity" value="poiuyt123" />
                                             <input type="hidden" id="vpb_page_owner" value="{{$email}}">
                                             <input type="hidden" id="vpb_page_identifier" value="wallfeeds">
@@ -330,7 +334,17 @@
 
                                                         <!-- Status Update Textarea Box -->
                                                         <div class="input-group" style="vertical-align:top;">
-                                                            <span class="input-group-addon stay-up" style=""><a href="http://www.vasplus.info/wall/poiuyt123"><span id="vp_profile_wall_photo"><img src="http://www.vasplus.info/photos/1511856000440826458.png" width="40" height="40" border="0"></span></a></span>
+                                                            <span class="input-group-addon stay-up" style="">
+                                                                <a href="/wall/{{$username}}">
+                                                                    <span id="vp_profile_wall_photo">
+                                                                        <?php if(empty($profile_pic_name)){?>
+                                                                            <img src="/img/avatar.gif" width="40" height="40" border="0">
+                                                                        <?php } else { ?>
+                                                                            <img src="/users/{{$email}}/profilePictures/{{$profile_pic_name}}" width="40" height="40" border="0">
+                                                                        <?php }?>
+                                                                    </span>
+                                                                </a>
+                                                            </span>
                                                             <textarea id="vpb_wall_post_data" class="form-control vpb-textarea" placeholder="What's on your mind?" onClick="vpb_show_post_bg();vpb_hide_other_boxes();vpb_show_added_details();" onKeyUp="vpb_show_added_details();"></textarea>
                                                         </div>
 

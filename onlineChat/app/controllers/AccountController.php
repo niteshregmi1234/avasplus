@@ -22,19 +22,31 @@ class AccountController extends BaseController{
             return View::make('account/wall')->withEmail(Session::get('email'))
                                              ->withFullname(Session::get('fullName'))
                                              ->withUsername(Session::get('userName'))
-                                             ;
+                                             ->withProfilePicName(Session::get('profilePicName'));
     }
     public function updateProfilePic(){
               $formData=Input::all();
               $email=Session::get("email");
               $image=$formData["profilepic"];
               $profilePicName["profilePicName"]=(new FileUtils())->makeSeparateDirectoryForUsersUsingEmails($email,$image);
+              Session::put('profilePicName', $profilePicName["profilePicName"]);
               $this->accountApi->profilePicPostBy($email,$profilePicName);
               $data=$this->accountApi->profilePicGetBy($email);
               $response["completed"]=true;
               $response["profilePicName"]=$data["_source"]["profilePicName"];
               $response["email"]=$email;
               return json_encode($response);
+
+    }
+    public function about(){
+
+        $about=View::make("account/partial/about")
+                 ->withEmail(Session::get('email'))
+                 ->withFullname(Session::get('fullName'))
+                 ->withUsername(Session::get('userName'))
+                 ->withAction(Input::get("action"))
+                 ->render();
+        return $about;
 
     }
 }

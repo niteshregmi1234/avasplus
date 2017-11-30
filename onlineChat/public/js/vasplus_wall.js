@@ -5267,9 +5267,9 @@ function vpb_show_about_page_owner_details(action)
         scrollTop: $("#vasplus_about_page_owner").offset().top-parseInt(100)+'px'
     }, 1600, 'easeInOutExpo');
 
-    var dataString = {'username':session_uid, 'vpb_page_owner':vpb_page_owner, 'action':action, 'page':'vpb_get_about_page_owner_detail'};
+    var dataString = {'email':session_uid, 'vpb_page_owner':vpb_page_owner, 'action':action, 'page':'vpb_get_about_page_owner_detail'};
 
-    $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
+    $.post(vpb_site_url+'about', dataString,  function(response)
     {
         $("#vpb_display_about_page_owner").html(response);
 
@@ -5601,7 +5601,7 @@ function vpb_save_profile_details()
 
         var dataString = {'username':session_uid, 'vpb_page_owner':vpb_page_owner, 'fullname':epage_fullname, 'email':epage_email, 'about_us':eabout_us, 'favorite_quotes':efavorite_quotes, 'marital_status':emarital_status, 'address':eaddress, 'phone':ephone, 'gender':egender, 'interested_in':einterested_in, 'day':eday, 'month':emonth, 'year':eyear, 'birth_date_privacy':ebirth_date_privacy, 'company':ecompany, 'job_position':ejob_position, 'professional_skill':eprofessional_skill, 'high_school_name':ehigh_school_name, 'started_high_school_from_date':started_high_school_from_date, 'ended_high_school_at_date':ended_high_school_at_date, 'college_field_of_study':ecollege_field_of_study, 'college_name':ecollege_name, 'started_college_from_date':started_college_from_date, 'ended_college_at_date':ended_college_at_date, 'from_city_name':efrom_city_name, 'lives_in_city_name':elives_in_city_name, 'language':elanguage, 'religion':ereligion, 'politicl_view':epoliticl_view, 'country':ecountry, 'page':'vpb_save_profile_detail'};
 
-        $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
+        $.post(vpb_site_url+'aboutEdit', dataString,  function(response)
         {
             $("#vpb_display_about_page_owner").removeClass('disable_this_box');
             $("#vpb_display_about_page_owner").addClass('enable_this_box');

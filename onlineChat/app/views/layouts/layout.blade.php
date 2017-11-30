@@ -49,8 +49,12 @@
                 <li class="user-d-s">
                     <a href="/wall/{{$username}}" id="o_p_page_first_name" title="{{$fullname}}">
                         <div class="vpb_profile_picture_icon_wrapper">
-                            <span id="vp_profile_photo"><img src="http://www.vasplus.info/photos/1511856000440826458.png" border="0" width="30" height="26" align="absmiddle" /></span>
-                            <span id="p_page_first_name">{{explode(" ",$fullname)[0]}}</span>
+                            <?php if(empty($profile_pic_name)){?>
+                            <span id="vp_profile_photo"><img src="/img/avatar.gif" border="0" width="30" height="26" align="absmiddle" /></span>
+                            <?php } else {?>
+                            <span id="vp_profile_photo"><img src="/users/{{$email}}/profilePictures/{{$profile_pic_name}}" border="0" width="30" height="26" align="absmiddle" /></span>
+                            <?php }?>
+                                    <span id="p_page_first_name">{{explode(" ",$fullname)[0]}}</span>
                             <div style="clear:both;"></div>
                         </div>
                     </a>
