@@ -39,14 +39,39 @@ class AccountController extends BaseController{
 
     }
     public function about(){
+        $datas=$this->accountApi->aboutGetBy(Input::get('email'));
+        $data=$datas['_source'];
 
-        $about=View::make("account/partial/about")
-                 ->withEmail(Session::get('email'))
-                 ->withFullname(Session::get('fullName'))
-                 ->withUsername(Session::get('userName'))
-                 ->withAction(Input::get("action"))
-                 ->render();
-        return $about;
+        if(Input::get("action")=='normal') {
 
+            $about = View::make("account/partial/about")
+                ->withData($data)
+                ->withAction(Input::get("action"))
+                ->withStyleForViewDetails("min-width:100%;display:inline-block;")
+                ->withStyleForEdit("min-width:100%;display:none;")
+                ->render();
+                return $about;
+        }else if (Input::get("action")=='edit'){
+            $about = View::make("account/partial/about")
+                ->withData($data)
+                ->withAction(Input::get("action"))
+                ->withStyleForViewDetails("display:none;")
+                ->withStyleForEdit("display:inline-block;min-width:100% !important;width:100% !important;")
+                ->render();
+                return $about;
+        }
+
+
+    }
+
+    public function aboutEditDetail(){
+        $this->accountApi->aboutPostBy(Input::get('email'),Input::all());
+        $datas=$this->authApi->signUpAuthBy(Input::get('email'));
+        $data=$datas['hits']['hits'][0]['_source'];
+        $data['fullName']=Input::get('fullname');
+        $data['userName']=Input::get('username');
+        $this->authApi->signUpPost($data);
+        $response["VPB:"]=true;
+        return json_encode($response);
     }
 }

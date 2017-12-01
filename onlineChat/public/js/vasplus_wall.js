@@ -5359,19 +5359,26 @@ function vpb_show_notifications_details(action)
 }
 
 // Validate email addresses
-function vpb_email_is_valid(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
+// function vpb_email_is_valid(email) {
+//     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+//     return regex.test(email);
+// }
+function  vpb_fullname_is_valid(fullname) {
+    var regex=/^[a-z]+(\s)([a-z]+)$/;
+    return regex.test(fullname);
 }
-
+function  vpb_username_is_valid(username) {
+    var regex=/^([a-z]+)$/;
+    return regex.test(username);
+}
 // Show About Page Owner Details
 function vpb_save_profile_details()
 {
     var session_uid = $("#session_uid").val();
     var vpb_page_owner = $("#vpb_page_owner").val();
     var epage_fullname = $("#epage_fullname").val();
+    var epage_username = $("#epage_username").val();
     var epage_email = $("#epage_email").val();
-
     var eabout_us = $("#eabout_us").val();
     var efavorite_quotes = $("#efavorite_quotes").val();
     var emarital_status = $("#emarital_status").val();
@@ -5391,12 +5398,12 @@ function vpb_save_profile_details()
     var hs_started_day = $("#hs_started_day").val();
     var hs_started_month = $("#hs_started_month").val();
     var hs_started_year = $("#hs_started_year").val();
-    var started_high_school_from_date = hs_started_day+'-'+hs_started_month+'-'+hs_started_year;
+    var started_high_school_from_date = hs_started_year+'-'+hs_started_month+'-'+hs_started_day;
 
     var hs_ended_day = $("#hs_ended_day").val();
     var hs_ended_month = $("#hs_ended_month").val();
     var hs_ended_year = $("#hs_ended_year").val();
-    var ended_high_school_at_date = hs_ended_day+'-'+hs_ended_month+'-'+hs_ended_year;
+    var ended_high_school_at_date = hs_ended_year+'-'+hs_ended_month+'-'+hs_ended_day;
 
     var ecollege_field_of_study = $("#ecollege_field_of_study").val();
     var ecollege_name = $("#ecollege_name").val();
@@ -5404,12 +5411,12 @@ function vpb_save_profile_details()
     var c_started_day = $("#c_started_day").val();
     var c_started_month = $("#c_started_month").val();
     var c_started_year = $("#c_started_year").val();
-    var started_college_from_date = c_started_day+'-'+c_started_month+'-'+c_started_year;
+    var started_college_from_date = c_started_year+'-'+c_started_month+'-'+c_started_day;
 
     var c_ended_day = $("#c_ended_day").val();
     var c_ended_month = $("#c_ended_month").val();
     var c_ended_year = $("#c_ended_year").val();
-    var ended_college_at_date = c_ended_day+'-'+c_ended_month+'-'+c_ended_year;
+    var ended_college_at_date = c_ended_year+'-'+c_ended_month+'-'+c_ended_day;
 
     var efrom_city_name = $("#efrom_city_name").val();
     var elives_in_city_name = $("#elives_in_city_name").val();
@@ -5425,8 +5432,9 @@ function vpb_save_profile_details()
         $("#v-wall-alert-box").click();
         return false;
     }
-    else if(vpb_trim(epage_fullname) == "")
+    else if(epage_fullname == "")
     {
+        console.log("i am here:"+epage_fullname);
         $('html, body').animate({
             scrollTop: $("#page_fullname_html").offset().top-parseInt(100)+'px'
         }, 1600, 'easeInOutExpo');
@@ -5434,24 +5442,51 @@ function vpb_save_profile_details()
         $("#v-wall-alert-box").click();
         return false;
     }
-    else if(vpb_trim(epage_email) == "")
+    else if(!vpb_fullname_is_valid(epage_fullname))
     {
         $('html, body').animate({
-            scrollTop: $("#page_email_html").offset().top-parseInt(100)+'px'
+            scrollTop: $("#page_fullname_html").offset().top-parseInt(100)+'px'
         }, 1600, 'easeInOutExpo');
-        $("#v-wall-message").html($("#empty_email_field").val());
+        $("#v-wall-message").html($("#invalid_fullname_field").val());
         $("#v-wall-alert-box").click();
         return false;
     }
-    else if(!vpb_email_is_valid(vpb_trim(epage_email)))
+    else if(epage_username == "")
     {
         $('html, body').animate({
-            scrollTop: $("#page_email_html").offset().top-parseInt(100)+'px'
+            scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
         }, 1600, 'easeInOutExpo');
-        $("#v-wall-message").html($("#invalid_email_field").val());
+        $("#v-wall-message").html($("#empty_username_field").val());
         $("#v-wall-alert-box").click();
         return false;
     }
+    else if(!vpb_username_is_valid(epage_username))
+    {
+        $('html, body').animate({
+            scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
+        }, 1600, 'easeInOutExpo');
+        $("#v-wall-message").html($("#invalid_username_field").val());
+        $("#v-wall-alert-box").click();
+        return false;
+    }
+    // else if(vpb_trim(epage_email) == "")
+    // {
+    //     $('html, body').animate({
+    //         scrollTop: $("#page_email_html").offset().top-parseInt(100)+'px'
+    //     }, 1600, 'easeInOutExpo');
+    //     $("#v-wall-message").html($("#empty_email_field").val());
+    //     $("#v-wall-alert-box").click();
+    //     return false;
+    // }
+    // else if(!vpb_email_is_valid(vpb_trim(epage_email)))
+    // {
+    //     $('html, body').animate({
+    //         scrollTop: $("#page_email_html").offset().top-parseInt(100)+'px'
+    //     }, 1600, 'easeInOutExpo');
+    //     $("#v-wall-message").html($("#invalid_email_field").val());
+    //     $("#v-wall-alert-box").click();
+    //     return false;
+    // }
     else if(eday != "" && emonth == "" || eday != "" && eyear == "")
     {
 
@@ -5599,9 +5634,9 @@ function vpb_save_profile_details()
         $("#vpb_display_about_page_owner").removeClass('enable_this_box');
         $("#vpb_display_about_page_owner").addClass('disable_this_box');
 
-        var dataString = {'username':session_uid, 'vpb_page_owner':vpb_page_owner, 'fullname':epage_fullname, 'email':epage_email, 'about_us':eabout_us, 'favorite_quotes':efavorite_quotes, 'marital_status':emarital_status, 'address':eaddress, 'phone':ephone, 'gender':egender, 'interested_in':einterested_in, 'day':eday, 'month':emonth, 'year':eyear, 'birth_date_privacy':ebirth_date_privacy, 'company':ecompany, 'job_position':ejob_position, 'professional_skill':eprofessional_skill, 'high_school_name':ehigh_school_name, 'started_high_school_from_date':started_high_school_from_date, 'ended_high_school_at_date':ended_high_school_at_date, 'college_field_of_study':ecollege_field_of_study, 'college_name':ecollege_name, 'started_college_from_date':started_college_from_date, 'ended_college_at_date':ended_college_at_date, 'from_city_name':efrom_city_name, 'lives_in_city_name':elives_in_city_name, 'language':elanguage, 'religion':ereligion, 'politicl_view':epoliticl_view, 'country':ecountry, 'page':'vpb_save_profile_detail'};
+        var dataString = {'email':session_uid, 'vpb_page_owner':vpb_page_owner, 'fullname':epage_fullname, 'username':epage_username, 'about_us':eabout_us, 'favorite_quotes':efavorite_quotes, 'marital_status':emarital_status, 'address':eaddress, 'phone':ephone, 'gender':egender, 'interested_in':einterested_in, 'day':eday, 'month':emonth, 'year':eyear, 'birth_date_privacy':ebirth_date_privacy, 'company':ecompany, 'job_position':ejob_position, 'professional_skill':eprofessional_skill, 'high_school_name':ehigh_school_name, 'started_high_school_from_date':started_high_school_from_date, 'ended_high_school_at_date':ended_high_school_at_date, 'college_field_of_study':ecollege_field_of_study, 'college_name':ecollege_name, 'started_college_from_date':started_college_from_date, 'ended_college_at_date':ended_college_at_date, 'from_city_name':efrom_city_name, 'lives_in_city_name':elives_in_city_name, 'language':elanguage, 'religion':ereligion, 'politicl_view':epoliticl_view, 'country':ecountry, 'page':'vpb_save_profile_detail'};
 
-        $.post(vpb_site_url+'aboutEdit', dataString,  function(response)
+        $.post(vpb_site_url+'about-edit', dataString,  function(response)
         {
             $("#vpb_display_about_page_owner").removeClass('disable_this_box');
             $("#vpb_display_about_page_owner").addClass('enable_this_box');

@@ -9,9 +9,11 @@
 class AuthController extends BaseController
 {
     protected $authApi;
+    protected $accountApi;
     public function __construct() {
         // Instantiate the APIs the controller will use which is placed in model.
         $this->authApi = new ApiAuth();
+        $this->accountApi=new ApiAccount();
     }
     public function login() {
         return View::make('login');
@@ -172,9 +174,12 @@ class AuthController extends BaseController
                 $is_data["hits"]["hits"][0]["_source"]["process-completed-status"]=true;
                 $is_data["hits"]["hits"][0]["_source"]["code"]=null;
                 $this->authApi->signUpPost($is_data["hits"]["hits"][0]["_source"]);
+                $params=array('email'=>Session::get('email'),'fullname'=>Session::get('fullName'),'username'=>Session::get('userName'));
+                $this->accountApi->aboutPostBy(Session::get('email'),$params);
                 return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["userName"]);
 
         }else{
+
                 return Redirect::to("login")->withMessage("<div class=\"vwarning\">Already Verified, Please login to proceed</div>");
             }
         }else{

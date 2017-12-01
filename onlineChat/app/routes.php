@@ -41,3 +41,4 @@ Route::post('new-password', 'AuthController@newPasswordPost');
 
 Route::post('update-profile-pic', 'AccountController@updateProfilePic');
 Route::post('about', 'AccountController@about');
+Route::post('about-edit', 'AccountController@aboutEditDetail');

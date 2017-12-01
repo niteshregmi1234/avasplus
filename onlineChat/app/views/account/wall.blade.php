@@ -271,6 +271,9 @@
                                             <input type="hidden" id="verify_new_user_password_field_blank_text" value="Please verity your provided new password in the field specified to go.">
                                             <input type="hidden" id="verify_and_new_user_password_field_not_match_text" value="Passwords did not match. Please be sure that the new password and verify password field entries are the same and try again.">
                                             <input type="hidden" id="empty_fullname_field" value="Please enter your fullname in the required field to proceed.">
+                                            <input type="hidden" id="invalid_fullname_field" value="Please enter a valid fullname  in the required field to proceed.">
+                                            <input type="hidden" id="empty_username_field" value="Please enter your username in the required field to proceed.">
+                                            <input type="hidden" id="invalid_username_field" value="Please enter a valid username  in the required field to proceed.">
                                             <input type="hidden" id="empty_email_field" value="Please enter your email address in the required field to proceed.">
                                             <input type="hidden" id="invalid_email_field" value="Please enter a valid email address in the required field to proceed.">
                                             <input type="hidden" id="empty_reporting_post_field_text" value="Please enter the reason why you want to make a report in the field specified to proceed.">
