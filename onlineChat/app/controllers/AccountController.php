@@ -17,24 +17,29 @@ class AccountController extends BaseController{
 
      }
 
-    public function index() {
-
-            return View::make('account/wall')->withEmail(Session::get('email'))
-                                             ->withFullname(Session::get('fullName'))
-                                             ->withUsername(Session::get('userName'))
-                                             ->withProfilePicName(Session::get('profilePicName'));
+    public function index($email) {
+            $datas=$this->authApi->signUpAuthBy($email);
+            $data=$datas["hits"]["hits"][0]["_source"];
+            return View::make('account/wall')->withEmail($data['email'])
+                                             ->withFullname($data['fullName'])
+                                             ->withUsername($data['userName'])
+                                             ->withProfilePicName($data['profilePicName']);
     }
     public function updateProfilePic(){
               $formData=Input::all();
-              $email=Session::get("email");
+//              $credentials["email"]=Session::get("email");
+              $datas=$this->authApi->signUpAuthBy(Session::get("email"));
+              $credentials=$datas["hits"]["hits"][0]["_source"];
+//              $credentials["password"]=Session::get("password");
               $image=$formData["profilepic"];
-              $profilePicName["profilePicName"]=(new FileUtils())->makeSeparateDirectoryForUsersUsingEmails($email,$image);
+              $profilePicName["profilePicName"]=(new FileUtils())->makeSeparateDirectoryForUsersUsingEmails(Session::get("email"),$image);
               Session::put('profilePicName', $profilePicName["profilePicName"]);
-              $this->accountApi->profilePicPostBy($email,$profilePicName);
-              $data=$this->accountApi->profilePicGetBy($email);
+              $credentials["profilePicName"]=Session::get("profilePicName");
+              $this->authApi->signUpPost($credentials);
+              $data=$this->authApi->signUpAuthBy($credentials["email"]);
               $response["completed"]=true;
-              $response["profilePicName"]=$data["_source"]["profilePicName"];
-              $response["email"]=$email;
+              $response["profilePicName"]=$data["hits"]["hits"][0]["_source"]["profilePicName"];
+              $response["email"]=Session::get("email");
               return json_encode($response);
 
     }
@@ -72,6 +77,37 @@ class AccountController extends BaseController{
         $data['userName']=Input::get('username');
         $this->authApi->signUpPost($data);
         $response["VPB:"]=true;
-        return json_encode($response);
+        $response["response"]="<div class=\"vsuccess\" align=\"left\">The profile information have been updated successfully.</div>";
+        echo json_encode($response);
     }
+
+    public function searchFriends(){
+        $is_datas=$this->authApi->searchGetBy(Input::get('friend'));
+        if($is_datas["hits"]["total"]>0){
+            $datas=$is_datas["hits"]["hits"];
+            foreach ($datas as $key=>$value){
+                $data=$value["_source"];
+                $email=$data["email"];
+                $profilePicName=$data["profilePicName"];
+                $username=$data["userName"];
+                $fullname=$data["fullName"];
+                $response=View::make("search-list")
+                    ->withFullname($fullname)
+                    ->withEmail($email)
+                    ->withUsername($username)
+                    ->withProfilePicName($profilePicName)
+                    ->render();
+                echo $response;
+            }
+
+//
+        }else{
+            $response["VPB:"]=true;
+            $response["message"]="Your keyword yielded no result";
+            echo json_encode($response);
+        }
+
+    }
+
+
 }

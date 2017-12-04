@@ -147,6 +147,7 @@ class AuthController extends BaseController
                      </td>
                      </tr>
                      </tbody></table>";
+                  $credentials["profilePicName"]="";
                   $this->authApi->signUpPost($credentials);
                   $this->authApi->sendMail($credentials,$body);
                   $cred["done-signup"]=true;
@@ -176,7 +177,7 @@ class AuthController extends BaseController
                 $this->authApi->signUpPost($is_data["hits"]["hits"][0]["_source"]);
                 $params=array('email'=>Session::get('email'),'fullname'=>Session::get('fullName'),'username'=>Session::get('userName'));
                 $this->accountApi->aboutPostBy(Session::get('email'),$params);
-                return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["userName"]);
+                return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["email"]);
 
         }else{
 

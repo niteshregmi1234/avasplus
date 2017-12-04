@@ -102,7 +102,6 @@ function vpb_request_password_link()
 				var response_brought = response.indexOf("processCompletedStatus");
 				console.log(response);
 				$vlog=JSON.parse(response);
-				console.log($vlog);
 				if(response_brought != -1)
 				{
 					if($vlog.processCompletedStatus==true){
@@ -296,7 +295,7 @@ function vpb_login()
 					else
 					{
 						setTimeout(function() {
-							window.location.replace(vpb_site_url+'wall/'+vlog.username);
+							window.location.replace(vpb_site_url+'wall/'+vlog.email);
 						},500);
 					}
 					$("#ue_data").val('');

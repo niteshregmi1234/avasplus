@@ -302,9 +302,9 @@
 
                                             <input type='hidden' id='v_removing_btn' value='<div title="Removing..." class="btn_loading">Removing<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>'>
 
-                                            <input type="hidden" id="vpb_loading_image_gif" value='<br clear="all" /><center><div onMouseDown="return false;" onMouseMove="return false;" onMouseUp="return false;" onselectstart="return false;" class="vpb_loading_rounds" align="center"><img src="http://www.vasplus.info/img/loadings.gif" alt="Loading...." align="absmiddle" title="Loading...."/><br><div align="center" style="margin-top:15px;">Please wait</div></div></center>' />
+                                            <input type="hidden" id="vpb_loading_image_gif" value='<br clear="all" /><center><div onMouseDown="return false;" onMouseMove="return false;" onMouseUp="return false;" onselectstart="return false;" class="vpb_loading_rounds" align="center"><img src="/img/loadings.gif" alt="Loading...." align="absmiddle" title="Loading...."/><br><div align="center" style="margin-top:15px;">Please wait</div></div></center>' />
 
-                                            <input type="hidden" id="vpb_loading_c_image_gif" value='<center><div onMouseDown="return false;" onMouseMove="return false;" onMouseUp="return false;" onselectstart="return false;" class="vpb_loading_c_rounds" align="center"><img src="http://www.vasplus.info/img/loadings.gif" alt="Loading...." align="absmiddle" title="Loading...."/><br><div align="center" style="margin-top:15px;">Loading</div></div></center>' />
+                                            <input type="hidden" id="vpb_loading_c_image_gif" value='<center><div onMouseDown="return false;" onMouseMove="return false;" onMouseUp="return false;" onselectstart="return false;" class="vpb_loading_c_rounds" align="center"><img src="/img/loadings.gif" alt="Loading...." align="absmiddle" title="Loading...."/><br><div align="center" style="margin-top:15px;">Loading</div></div></center>' />
 
 
                                             <input type="hidden" id="admin_ban_user_account_text" value="Are you sure that you really want to ban the account of ">

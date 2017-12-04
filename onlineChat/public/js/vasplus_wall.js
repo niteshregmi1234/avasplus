@@ -4500,14 +4500,13 @@ function vpb_search_for_friends()
         //if(completedSearchRequest == true) { return false; } else {}
         //completedSearchRequest = true;
 
-        $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
+        $.post(vpb_site_url+'search-friends', dataString,  function(response)
         {
             //completedSearchRequest = false;
-
             var response_brought = response.indexOf('VPB:');
-            if(response_brought != -1)
+            if(response_brought == -1)
             {
-                $("#vpb_display_search_results").show().html('<ul id="v_search_results_box" class="dropdown-menu open bullet pull-center vasplus_bosy" style="right: auto; left: 0px; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;width:100%; display:block;" aria-labelledby="v_search_results_box"><li class="dropdown-header dropdown-header-plus">'+response.replace('VPB: ', '')+'</li></ul>');
+                $("#vpb_display_search_results").show().html('<ul id="v_search_results_box" class="dropdown-menu open bullet pull-center vasplus_bosy" style="right: auto; left: 0px; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;width:100%; display:block;" aria-labelledby="v_search_results_box"><li class="dropdown-header dropdown-header-plus vthe_inner" style="padding-top: 0px !important; padding-bottom: 0px !important; overflow-y: auto; overflow-x: hidden;">'+response+'</li></ul>');
 
                 setTimeout(function() {
                     //$("#vpb_display_search_results").html('');
@@ -4515,13 +4514,14 @@ function vpb_search_for_friends()
             }
             else
             {
+                var vlog=JSON.parse(response)
                 if(response == "")
                 {
                     $("#vpb_display_search_results").hide();
                 }
                 else
                 {
-                    $("#vpb_display_search_results").show().html('<ul id="v_search_results_box" class="dropdown-menu open bullet pull-center vasplus_bosy" style="right: auto; left: 0px; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;width:100%; display:block;" aria-labelledby="v_search_results_box"><li class="dropdown-header dropdown-header-plus vthe_inner" style=" padding-top:0px !important; padding-bottom:0px !important;">'+response+'</li></ul>');
+                    $("#vpb_display_search_results").show().html('<ul id="v_search_results_box" class="dropdown-menu open bullet pull-center vasplus_bosy" style="right: auto; left: 0px; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;width:100%; display:block;" aria-labelledby="v_search_results_box"><li class="dropdown-header dropdown-header-plus vthe_inner" style=" padding-top:0px !important; padding-bottom:0px !important;">'+vlog.message+'</li></ul>');
                 }
             }
 
@@ -4721,7 +4721,6 @@ function vpb_update_profile_picture(my_identity)
         formData.append("page", 'update-user-photo');
         formData.append("userid", my_identity);
         formData.append("profilepic", document.getElementById('profile_pic').files[0]);
-        console.log(formData);
 
         $.ajax({
             url: vpb_site_url+'update-profile-pic',
@@ -5082,9 +5081,9 @@ function vpb_search_friends()
     {
         $("#vpb_display_wall_find_friends").html($("#vpb_loading_image_gif").val()); //Show loading image
 
-        var dataString = {'friend':friend, 'username':session_uid, 'page':'search_for_friends'};
+        var dataString = {'friend':friend, 'email':session_uid, 'page':'search_for_friends'};
 
-        $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
+        $.post(vpb_site_url+'search_friends', dataString,  function(response)
         {
             var response_brought = response.indexOf('VPB:');
             if(response_brought != -1)
@@ -5270,7 +5269,9 @@ function vpb_show_about_page_owner_details(action)
     var dataString = {'email':session_uid, 'vpb_page_owner':vpb_page_owner, 'action':action, 'page':'vpb_get_about_page_owner_detail'};
 
     $.post(vpb_site_url+'about', dataString,  function(response)
+
     {
+
         $("#vpb_display_about_page_owner").html(response);
 
     }).fail(function(error_response)
@@ -5434,7 +5435,6 @@ function vpb_save_profile_details()
     }
     else if(epage_fullname == "")
     {
-        console.log("i am here:"+epage_fullname);
         $('html, body').animate({
             scrollTop: $("#page_fullname_html").offset().top-parseInt(100)+'px'
         }, 1600, 'easeInOutExpo');
@@ -5638,6 +5638,7 @@ function vpb_save_profile_details()
 
         $.post(vpb_site_url+'about-edit', dataString,  function(response)
         {
+            var vlog=JSON.parse(response)
             $("#vpb_display_about_page_owner").removeClass('disable_this_box');
             $("#vpb_display_about_page_owner").addClass('enable_this_box');
 
@@ -5654,7 +5655,7 @@ function vpb_save_profile_details()
                 $("#o_p_page_first_name").attr('data-original-title', epage_fullname);
                 $("#o_p_page_first_name").attr('title', epage_fullname);
 
-                $("#update_acct_status").html(response.replace('VPB: ', ''));
+                $("#update_acct_status").html(vlog.response);
 
                 $("#update_acct_wait").html($("#v_sending_btn").val());
 

@@ -352,7 +352,7 @@ $("#ebirth_date_privacy").select2();
 <div id="started_high_school_from_date_html" style="{{$style_for_edit}}">
 <span class="input-group-addon vprofile_about_detail_addon">Add the date you started your high school</span>
 <select id="hs_started_day" style="min-width: 30%; text-align: center; float: left;">
-<?php if($data['started_high_school_from_date']=="__"){
+<?php if($data['started_high_school_from_date']=="--"){
 echo "<option value=\"\">Day</option>";
  } else{
 echo "<option value=".explode("-",$data['started_high_school_from_date'])[2].">".explode("-",$data['started_high_school_from_date'])[2]."</option>
@@ -364,7 +364,7 @@ echo "<option value=".explode("-",$data['started_high_school_from_date'])[2].">"
 
 <select id="hs_started_month" style="min-width: 30%; text-align: center; float: left; " >
 
-    <?php if($data['started_high_school_from_date']=="__"){
+    <?php if($data['started_high_school_from_date']=="--"){
         echo "<option value=\"\">Month</option>";
     } else{
         echo "<option value=".explode("-",$data['started_high_school_from_date'])[1].">".explode("-",$data['started_high_school_from_date'])[1]."</option>
@@ -375,7 +375,7 @@ echo "<option value=".explode("-",$data['started_high_school_from_date'])[2].">"
 <select id="hs_started_year" style="min-width: 40%; text-align: center; float: left;">
 
 
-    <?php if($data['started_high_school_from_date']=="__"){
+    <?php if($data['started_high_school_from_date']=="--"){
         echo "<option value=\"\">Year</option>";
     } else{
         echo "<option value=".explode("-",$data['started_high_school_from_date'])[0].">".explode("-",$data['started_high_school_from_date'])[0]."</option>
@@ -404,7 +404,7 @@ $("#hs_started_year").select2();
     <span class="input-group-addon vprofile_about_detail_addon">Add the date you ended your high school</span>
     <select id="hs_ended_day" style="min-width: 30%; text-align: center; float: left;">
 
-            <?php if($data['ended_high_school_at_date']=="__"){
+            <?php if($data['ended_high_school_at_date']=="--"){
                 echo "<option value=\"\">Day</option>";
             } else{
                 echo "<option value=".explode("-",$data['ended_high_school_at_date'])[2].">".explode("-",$data['ended_high_school_at_date'])[2]."</option>
@@ -416,7 +416,7 @@ $("#hs_started_year").select2();
 
     <select id="hs_ended_month" style="min-width: 30%; text-align: center; float: left; " >
 
-            <?php if($data['ended_high_school_at_date']=="__"){
+            <?php if($data['ended_high_school_at_date']=="--"){
                 echo "<option value=\"\">Month</option>";
             } else{
                 echo "<option value=".explode("-",$data['ended_high_school_at_date'])[1].">".explode("-",$data['ended_high_school_at_date'])[1]."</option>
@@ -428,7 +428,7 @@ $("#hs_started_year").select2();
     <select id="hs_ended_year" style="min-width: 40%; text-align: center; float: left;" >
 
 
-            <?php if($data['ended_high_school_at_date']=="__"){
+            <?php if($data['ended_high_school_at_date']=="--"){
                 echo "<option value=\"\">Year</option>";
             } else{
                 echo "<option value=".explode("-",$data['ended_high_school_at_date'])[0].">".explode("-",$data['ended_high_school_at_date'])[0]."</option>
@@ -493,7 +493,7 @@ $("#hs_started_year").select2();
     <span class="input-group-addon vprofile_about_detail_addon">Add the date you started your college</span>
     <select id="c_started_day" style="min-width: 30%; text-align: center; float: left; " >
 
-            <?php if($data['started_college_from_date']=="__"){
+            <?php if($data['started_college_from_date']=="--"){
                 echo "<option value=\"\">Day</option>";
             } else{
                 echo "<option value=".explode("-",$data['started_college_from_date'])[2].">".explode("-",$data['started_college_from_date'])[2]."</option>
@@ -505,7 +505,7 @@ $("#hs_started_year").select2();
     <select id="c_started_month" style="min-width: 30%; text-align: center; float: left;" >
 
 
-            <?php if($data['started_college_from_date']=="__"){
+            <?php if($data['started_college_from_date']=="--"){
                 echo "<option value=\"\">Month</option>";
             } else{
                 echo "<option value=".explode("-",$data['started_college_from_date'])[1].">".explode("-",$data['started_college_from_date'])[1]."</option>
@@ -516,7 +516,7 @@ $("#hs_started_year").select2();
 
     <select id="c_started_year" style="min-width: 40%; text-align: center; float: left;">
 
-            <?php if($data['started_college_from_date']=="__"){
+            <?php if($data['started_college_from_date']=="--"){
                 echo "<option value=\"\">Year</option>";
             } else{
                 echo "<option value=".explode("-",$data['started_college_from_date'])[0].">".explode("-",$data['started_college_from_date'])[0]."</option>
