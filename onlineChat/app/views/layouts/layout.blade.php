@@ -47,14 +47,14 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="user-d-s">
-                    <a href="/wall/{{$username}}" id="o_p_page_first_name" title="{{$fullname}}">
+                    <a href="/wall/{{Session::get("email")}}" id="o_p_page_first_name" title="{{Session::get("fullName")}}">
                         <div class="vpb_profile_picture_icon_wrapper">
-                            <?php if(empty($profile_pic_name)){?>
+                            <?php if(empty(Session::get("profilePicName"))){?>
                             <span id="vp_profile_photo"><img src="/img/avatar.gif" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php } else {?>
-                            <span id="vp_profile_photo"><img src="/users/{{$email}}/profilePictures/{{$profile_pic_name}}" border="0" width="30" height="26" align="absmiddle" /></span>
+                            <span id="vp_profile_photo"><img src="/users/{{Session::get('email')}}/profilePictures/{{Session::get('profilePicName')}}" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php }?>
-                                    <span id="p_page_first_name">{{explode(" ",$fullname)[0]}}</span>
+                                    <span id="p_page_first_name">{{explode(" ",Session::get("fullName"))[0]}}</span>
                             <div style="clear:both;"></div>
                         </div>
                     </a>
@@ -76,7 +76,7 @@
                             <div style="float:left;">Friend Requests</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('poiuyt123');">Find Friend</span>
+                                <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('{{$email}}');">Find Friend</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>
@@ -100,7 +100,7 @@
                             <div style="float:left;">Notifications</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('poiuyt123');">View All</span>
+                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('{{$email}}');">View All</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>

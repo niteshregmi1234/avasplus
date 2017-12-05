@@ -174,8 +174,16 @@ class AuthController extends BaseController
             if (!$is_data["hits"]["hits"][0]["_source"]["process-completed-status"]){
                 $is_data["hits"]["hits"][0]["_source"]["process-completed-status"]=true;
                 $is_data["hits"]["hits"][0]["_source"]["code"]=null;
+                $data=$is_data["hits"]["hits"][0]["_source"];
                 $this->authApi->signUpPost($is_data["hits"]["hits"][0]["_source"]);
-                $params=array('email'=>Session::get('email'),'fullname'=>Session::get('fullName'),'username'=>Session::get('userName'));
+                $params=array('email'=>$data['email'],'fullname'=>$data['fullName'],'username'=>$data['userName'],
+                'vpb_page_owner'=>$data['email'],'about_us'=>null,'favorite_quotes'=>null,'marital_status'=>null,
+                    'address'=>null,  'phone'=>null,  'gender'=>null,  'interested_in'=>null,  'day'=>null,  'month'=>null,
+                    'year'=>null,  'birth_date_privacy'=>null,  'company'=>null, 'job_position'=>null,  'professional_skill'=>null,
+                    'high_school_name'=>null,  'started_high_school_from_date'=>"--",  'ended_high_school_at_date'=>'--',  ''=>null,  'college_field_of_study'=>null,
+                    'college_name'=>null,  'started_college_from_date'=>'--', 'ended_college_at_date'=>'--',  'from_city_name'=>null,
+                    'lives_in_city_name'=>null,  'language'=>null,  'religion'=>null,  'politicl_view'=>null,  'country'=>null,  'page'=>null
+                );
                 $this->accountApi->aboutPostBy(Session::get('email'),$params);
                 return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["email"]);
 

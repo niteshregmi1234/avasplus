@@ -18,29 +18,29 @@
 
                             <div class="vpb_profile_name" ><span id="p_page_name">{{$fullname}}</span></div>
                             <!-- Load User Details Starts -->
-                            <div style="margin-left:120px; position: absolute; z-index:99;">    <div class="dropdown open v_load_user_detail" onmouseover="vpb_get_user_onmouseover_datas();" onmouseout="vpb_get_user_mouseout_datas();" id="vpb_load_user_page_ownerpoiuyt123" style="text-align:left !important; margin:0px !important;padding:0px !important;">
+                            <div style="margin-left:120px; position: absolute; z-index:99;">    <div class="dropdown open v_load_user_detail" onmouseover="vpb_get_user_onmouseover_datas();" onmouseout="vpb_get_user_mouseout_datas();" id="vpb_load_user_page_owner{{$email}}" style="text-align:left !important; margin:0px !important;padding:0px !important;">
 
                                     <ul class="dropdown-menu bullet" style="border-radius:0px !important; display:block; margin:15px; z-index:9999;text-align:left !important;margin-top:10px;">
 
                                         <div class="dropdown-header" style="padding:10px !important;text-align:left !important; border:0px solid !important;margin:0px !important;">
                                             <div class="input-group vpb-wall-load-user-detail-wrap">
-    <span class="input-group-addon vpb-wall-load-user-detail-photo" style="cursor:pointer;" onclick="window.location.href='http://www.vasplus.info/wall/poiuyt123';">
-    <span id="vpb_load_user_photo_page_ownerpoiuyt123"></span>
+    <span class="input-group-addon vpb-wall-load-user-detail-photo" style="cursor:pointer;" onclick="window.location.href='/wall/{{$email}}';">
+    <span id="vpb_load_user_photo_page_owner{{$email}}"></span>
     </span>
                                                 <div class="vpb-wall-load-user-detail-others">
-                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='http://www.vasplus.info/wall/poiuyt123';"><span id="vpb_load_user_fullname_page_ownerpoiuyt123"></span></span><br>
-                                                    <span style="font-weight:normal !important;" id="vpb_load_user_country_page_ownerpoiuyt123"></span>
+                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='/wall/{{$email}}';"><span id="vpb_load_user_fullname_page_owner{{$email}}"></span></span><br>
+                                                    <span style="font-weight:normal !important;" id="vpb_load_user_country_page_owner{{$email}}"></span>
 
-                                                    <input type="hidden" id="vpb_friendship_uid_page_ownerpoiuyt123" value="poiuyt123" />
-                                                    <input type="hidden" id="vpb_friendship_fid_page_ownerpoiuyt123" value="poiuyt123" />
+                                                    <input type="hidden" id="vpb_friendship_uid_page_owner{{$email}}" value="{{$email}}" />
+                                                    <input type="hidden" id="vpb_friendship_fid_page_owner{{$email}}" value="{{$email}}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div style="clear:both;"></div>
                                         <div class="modal-footer" style="padding:10px !important; background-color:#F6F6F6; margin:0px;">
-                                            <span id="vpb_load_friendship_page_ownerpoiuyt123"></span>
+                                            <span id="vpb_load_friendship_page_owner{{$email}}"></span>
 
-                                            <span style="margin-left:16px !important;" class="cbt_friendship" onclick="window.location.href='http://www.vasplus.info/wall/poiuyt123';"><i class="fa fa-user"></i> Profile</span>
+                                            <span style="margin-left:16px !important;" class="cbt_friendship" onclick="window.location.href='/wall/{{$email}}';"><i class="fa fa-user"></i> Profile</span>
                                         </div>
                                     </ul>
                                 </div>
@@ -338,12 +338,12 @@
                                                         <!-- Status Update Textarea Box -->
                                                         <div class="input-group" style="vertical-align:top;">
                                                             <span class="input-group-addon stay-up" style="">
-                                                                <a href="/wall/{{$username}}">
+                                                                <a href="/wall/{{Session::get("email")}}">
                                                                     <span id="vp_profile_wall_photo">
-                                                                        <?php if(empty($profile_pic_name)){?>
+                                                                        <?php if(empty(Session::get("profilePicName"))){?>
                                                                             <img src="/img/avatar.gif" width="40" height="40" border="0">
                                                                         <?php } else { ?>
-                                                                            <img src="/users/{{$email}}/profilePictures/{{$profile_pic_name}}" width="40" height="40" border="0">
+                                                                            <img src="/users/{{Session::get("email")}}/profilePictures/{{Session::get("profilePicName")}}" width="40" height="40" border="0">
                                                                         <?php }?>
                                                                     </span>
                                                                 </a>
