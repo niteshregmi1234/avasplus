@@ -43,3 +43,4 @@ Route::post('update-profile-pic', 'AccountController@updateProfilePic');
 Route::post('about', 'AccountController@about');
 Route::post('about-edit', 'AccountController@aboutEditDetail');
 Route::post('search-friends', 'AccountController@searchFriends');
+Route::post('load-friendship-popup', 'AccountController@loadFriendShipPopup');

@@ -16,29 +16,29 @@
                         <!-- LEFT BOX STARTS -->
                         <div class="vpb_wall_body_left">
 
-                            <div class="vpb_profile_name" ><span id="p_page_name">{{$fullname}}</span></div>
+                            <div class="vpb_profile_name" onmouseover="vpb_get_user_onmouseover_data('page_owner{{$username}}', '{{$fullname}}', '', 'img/avatar.gif');" onmouseout="vpb_get_user_mouseout_data('page_owner{{$username}}', '{{$fullname}}', '', 'img/avatar.gif');"><span id="p_page_name">{{$fullname}}</span></div>
                             <!-- Load User Details Starts -->
-                            <div style="margin-left:120px; position: absolute; z-index:99;">    <div class="dropdown open v_load_user_detail" onmouseover="vpb_get_user_onmouseover_datas();" onmouseout="vpb_get_user_mouseout_datas();" id="vpb_load_user_page_owner{{$email}}" style="text-align:left !important; margin:0px !important;padding:0px !important;">
+                            <div style="margin-left:120px; position: absolute; z-index:99;">    <div class="dropdown open v_load_user_detail" onmouseover="vpb_get_user_onmouseover_datas();" onmouseout="vpb_get_user_mouseout_datas();" id="vpb_load_user_page_owner{{$username}}" style="text-align:left !important; margin:0px !important;padding:0px !important;">
 
                                     <ul class="dropdown-menu bullet" style="border-radius:0px !important; display:block; margin:15px; z-index:9999;text-align:left !important;margin-top:10px;">
 
                                         <div class="dropdown-header" style="padding:10px !important;text-align:left !important; border:0px solid !important;margin:0px !important;">
                                             <div class="input-group vpb-wall-load-user-detail-wrap">
     <span class="input-group-addon vpb-wall-load-user-detail-photo" style="cursor:pointer;" onclick="window.location.href='/wall/{{$email}}';">
-    <span id="vpb_load_user_photo_page_owner{{$email}}"></span>
+    <span id="vpb_load_user_photo_page_owner{{$username}}"></span>
     </span>
                                                 <div class="vpb-wall-load-user-detail-others">
-                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='/wall/{{$email}}';"><span id="vpb_load_user_fullname_page_owner{{$email}}"></span></span><br>
-                                                    <span style="font-weight:normal !important;" id="vpb_load_user_country_page_owner{{$email}}"></span>
+                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='/wall/{{$email}}';"><span id="vpb_load_user_fullname_page_owner{{$username}}"></span></span><br>
+                                                    <span style="font-weight:normal !important;" id="vpb_load_user_country_page_owner{{$username}}"></span>
 
-                                                    <input type="hidden" id="vpb_friendship_uid_page_owner{{$email}}" value="{{$email}}" />
-                                                    <input type="hidden" id="vpb_friendship_fid_page_owner{{$email}}" value="{{$email}}" />
+                                                    <input type="hidden" id="vpb_friendship_uid_page_owner{{$username}}" value={{Session::get('email')}}>
+                                                    <input type="hidden" id="vpb_friendship_fid_page_owner{{$username}}" value="niteshregmi143@gmail.com" >
                                                 </div>
                                             </div>
                                         </div>
                                         <div style="clear:both;"></div>
                                         <div class="modal-footer" style="padding:10px !important; background-color:#F6F6F6; margin:0px;">
-                                            <span id="vpb_load_friendship_page_owner{{$email}}"></span>
+                                            <span id="vpb_load_friendship_page_owner{{$username}}"></span>
 
                                             <span style="margin-left:16px !important;" class="cbt_friendship" onclick="window.location.href='/wall/{{$email}}';"><i class="fa fa-user"></i> Profile</span>
                                         </div>
@@ -242,7 +242,7 @@
                                             <input type="hidden" id="from_username_identity" value="poiuyt123" />
                                             <input type="hidden" id="vpb_page_owner" value="{{$email}}">
                                             <input type="hidden" id="vpb_page_identifier" value="wallfeeds">
-                                            <input type="hidden" id="vpb_session_pic_poiuyt123" value="http://www.vasplus.info/photos/1511856000440826458.png" />
+                                            <input type="hidden" id="vpb_session_pic_page_owner{{$username}}" value="http://www.vasplus.info/photos/1511856000440826458.png" />
                                             <input type="hidden" id="wall_video_action" value="">
                                             <input type="hidden" id="v_wall_is_dlt" value="">
                                             <input type="hidden" id="v_wall_is_dltype" value="">
@@ -339,7 +339,7 @@
                                                         <div class="input-group" style="vertical-align:top;">
                                                             <span class="input-group-addon stay-up" style="">
                                                                 <a href="/wall/{{Session::get("email")}}">
-                                                                    <span id="vp_profile_wall_photo">
+                                                                    <span id="vp_profile_wall_photo" title="{{Session::get("fullName")}}">
                                                                         <?php if(empty(Session::get("profilePicName"))){?>
                                                                             <img src="/img/avatar.gif" width="40" height="40" border="0">
                                                                         <?php } else { ?>

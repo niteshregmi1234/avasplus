@@ -412,6 +412,7 @@ var vpb_user_loader_timer = 500,
 
 function vpb_get_user_onmouseover_data(username, fullname, country, photo)
 {
+    console.log(username)
     if (vpb_time_out) clearTimeout(vpb_time_out);
 
     vpb_time_out = setTimeout(function()
@@ -425,9 +426,10 @@ function vpb_get_user_onmouseover_data(username, fullname, country, photo)
         else
         {
             var session_uid = $("#session_uid").val();
+
             var vpb_friend_uid = $("#vpb_friendship_fid_"+username).val();
 
-            var vpb_session_pic = $("#vpb_session_pic_"+session_uid).val();
+            var vpb_session_pic = $("#vpb_session_pic_"+username).val();
             if(vpb_session_pic != "" && session_uid == vpb_friend_uid) {
                 photo = vpb_session_pic;
             }
@@ -447,7 +449,7 @@ function vpb_get_user_onmouseover_data(username, fullname, country, photo)
             var dataString = {'page':'load_friendship_button', 'session_uid': session_uid, 'friend_uid': vpb_friend_uid};
             $.ajax({
                 type: "POST",
-                url: vpb_site_url+'wall-processor.php',
+                url: vpb_site_url+'load-friendship-popup',
                 data: dataString,
                 beforeSend: function()
                 {
