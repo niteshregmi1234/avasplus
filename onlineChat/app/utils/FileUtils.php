@@ -8,8 +8,8 @@
  */
 class FileUtils
 {
-public function makeSeparateDirectoryForUsersUsingEmails($email,$image){
-    $dir = $_SERVER['DOCUMENT_ROOT'] . "/users/$email/profilePictures";
+public function makeSeparateDirectoryForUsersUsingEmails($username,$image){
+    $dir = $_SERVER['DOCUMENT_ROOT'] . "/users/$username/profilePictures";
     $dateWithTime = (new DateTime("now",new DateTimeZone("Asia/kathmandu")))->format("Y-m-d-g:i:s_a");
     $imageFileName=$image->getClientOriginalName();
     $imageExtension=$image->getClientOriginalExtension();

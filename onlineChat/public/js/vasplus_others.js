@@ -100,7 +100,6 @@ function vpb_request_password_link()
 				$("#forgot_password_buttoned").show();
 					
 				var response_brought = response.indexOf("processCompletedStatus");
-				console.log(response);
 				$vlog=JSON.parse(response);
 				if(response_brought != -1)
 				{
@@ -222,10 +221,10 @@ function vpb_login()
 	var ue_data = vpb_trim($("#ue_data").val());
 	var uep_data = $("#uep_data").val();
 	
-	if(ue_data == "" || ue_data == "Email")
+	if(ue_data == "" || ue_data == "Username")
 	{
 		$("#ue_data").focus();
-		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_email_field").val()+'</div>');
+		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_username_field").val()+'</div>');
 		$('html, body').animate({
 			scrollTop: $('#ue_data').offset().top-parseInt(200)+'px'
 		}, 1600);
@@ -295,7 +294,7 @@ function vpb_login()
 					else
 					{
 						setTimeout(function() {
-							window.location.replace(vpb_site_url+'wall/'+vlog.email);
+							window.location.replace(vpb_site_url+'wall/'+vlog.username);
 						},500);
 					}
 					$("#ue_data").val('');
@@ -355,10 +354,6 @@ function  fullname_is_valid(fullname) {
 	var regex=/^[a-z]+(\s)([a-z]+)$/;
     return regex.test(fullname);
 }
-function  username_is_valid(username) {
-    var regex=/^([a-z]+)$/;
-    return regex.test(username);
-}
 
 function googleTranslateElementInit2() 
 {
@@ -375,7 +370,6 @@ eval(function(p,a,c,k,e,r)
 function vpb_sign_up()
 {
 	var sfullname = $("#sfullname").val();
-	var susername = $("#susername").val();
 	var semail = vpb_trim($("#semail").val());
 	var spass = $("#spass").val();
 	var vpb_ucounty = $("#vpb_ucounty").val();
@@ -396,22 +390,7 @@ function vpb_sign_up()
             scrollTop: $('#sfullname').offset().top-parseInt(200)+'px'
         }, 1600);
         return false;
-	    }else if(susername == "")
-	    {
-		$("#susername").focus();
-		$("#this_page_errors").html('<div class="vwarning">'+$("#empty_username_field").val()+'</div>');
-		$('html, body').animate({
-			scrollTop: $('#susername').offset().top-parseInt(200)+'px'
-		}, 1600);
-		return false;
-	}else if(susername != "" && !username_is_valid(susername)){
-        $("#susername").focus();
-        $("#this_page_errors").html('<div class="vwarning">'+"Sorry, but that's not your correct username. Please use small letters only  with no spaces at the beginning and end in the username field to proceed."+'</div>');
-        $('html, body').animate({
-            scrollTop: $('#susername').offset().top-parseInt(200)+'px'
-        }, 1600);
-        return false;
-	}
+	    }
 	else if(semail == "")
 	{
 		$("#semail").focus();

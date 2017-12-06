@@ -52,7 +52,7 @@
                             <?php if(empty(Session::get("profilePicName"))){?>
                             <span id="vp_profile_photo"><img src="/img/avatar.gif" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php } else {?>
-                            <span id="vp_profile_photo"><img src="/users/{{Session::get('email')}}/profilePictures/{{Session::get('profilePicName')}}" border="0" width="30" height="26" align="absmiddle" /></span>
+                            <span id="vp_profile_photo"><img src="/users/{{Session::get('username')}}/profilePictures/{{Session::get('profilePicName')}}" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php }?>
                                     <span id="p_page_first_name">{{explode(" ",Session::get("fullName"))[0]}}</span>
                             <div style="clear:both;"></div>
@@ -76,7 +76,7 @@
                             <div style="float:left;">Friend Requests</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('{{$email}}');">Find Friend</span>
+                                <span class="vpb_hover_b" onclick="vpb_show_find_new_friends_box('{{$username}}');">Find Friend</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>
@@ -100,7 +100,7 @@
                             <div style="float:left;">Notifications</div>
 
                             <div style="float:right; font-weight:normal !important; font-size:13px !important;">
-                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('{{$email}}');">View All</span>
+                                <span id="view_all_notifications" style="display:none;" class="vpb_hover_b" onclick="vpb_show_notifications_details('{{$username}}');">View All</span>
                             </div>
                             <div style="clear:both;"></div>
                         </li>

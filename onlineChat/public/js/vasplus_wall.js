@@ -412,7 +412,6 @@ var vpb_user_loader_timer = 500,
 
 function vpb_get_user_onmouseover_data(username, fullname, country, photo)
 {
-    console.log(username)
     if (vpb_time_out) clearTimeout(vpb_time_out);
 
     vpb_time_out = setTimeout(function()
@@ -3517,11 +3516,11 @@ function vpb_add_photos_to_post(id)
 
 
 //Friendship function
-function vpb_friend_ship(id, friend, action)
+function vpb_friend_ship(username, action)
 {
-    var username = $("#session_uid").val();
+    // var username = $("#session_uid").val();
 
-    if(id == "" || username == "")
+    if(username == "")
     {
         $("#v-wall-message").html($("#general_system_error").val());
         $("#v-wall-alert-box").click();
@@ -3532,9 +3531,9 @@ function vpb_friend_ship(id, friend, action)
         var unknow_request = 0;
         if(action == "addfriend")
         {
-            $("#addfriend_"+parseInt(id)).hide();
-            $("#requestsent_"+parseInt(id)).show();
-            $("#cancelrequest_"+parseInt(id)).show();
+            $("#addfriend_"+username).hide();
+            $("#requestsent_"+username).show();
+            $("#cancelrequest_"+username).show();
         }
         else if(action == "cancelrequest")
         {
@@ -3572,7 +3571,7 @@ function vpb_friend_ship(id, friend, action)
         }
         else
         {
-            var dataString = {"username":username, "friend":friend, "action":action, "page":"friend-ship-update"};
+            var dataString = {"username":username, "action":action, "page":"friend-ship-update"};
 
             $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
             {
@@ -3589,7 +3588,7 @@ function vpb_friend_ship(id, friend, action)
                 vpb_load_chat_friends_box('auto');
             }).fail(function(error_response)
             {
-                setTimeout("vpb_friend_ship('"+parseInt(id)+"', '"+friend+"', '"+action+"');", 10000);
+                setTimeout("vpb_friend_ship('"+friend+"', '"+action+"');", 10000);
             });
         }
     }
@@ -4799,7 +4798,7 @@ function vpb_update_profile_picture(my_identity)
                         {
                             if(my_identity == vpb_page_owner)
                             {
-                                $("#updateProfilePic").html('<div class="profilephoto_wrap"><div class="vprofilephoto" style="background-image: url('+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+');" onclick="vpb_popup_photo_box(\''+my_identity+'\', 1, 1, \''+vpb_site_url+'users/'+vlog.email+'/'+'profilePictures/'+upic+'\');"></div><div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div></div>');
+                                $("#updateProfilePic").html('<div class="profilephoto_wrap"><div class="vprofilephoto" style="background-image: url('+vpb_site_url+'users/'+vlog.username+'/'+'profilePictures/'+upic+');" onclick="vpb_popup_photo_box(\''+my_identity+'\', 1, 1, \''+vpb_site_url+'users/'+vlog.username+'/'+'profilePictures/'+upic+'\');"></div><div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div></div>');
                             }
                             else {}
                         }
@@ -5083,7 +5082,7 @@ function vpb_search_friends()
     {
         $("#vpb_display_wall_find_friends").html($("#vpb_loading_image_gif").val()); //Show loading image
 
-        var dataString = {'friend':friend, 'email':session_uid, 'page':'search_for_friends'};
+        var dataString = {'friend':friend, 'username':session_uid, 'page':'search_for_friends'};
 
         $.post(vpb_site_url+'search_friends', dataString,  function(response)
         {
@@ -5453,24 +5452,24 @@ function vpb_save_profile_details()
         $("#v-wall-alert-box").click();
         return false;
     }
-    else if(epage_username == "")
-    {
-        $('html, body').animate({
-            scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
-        }, 1600, 'easeInOutExpo');
-        $("#v-wall-message").html($("#empty_username_field").val());
-        $("#v-wall-alert-box").click();
-        return false;
-    }
-    else if(!vpb_username_is_valid(epage_username))
-    {
-        $('html, body').animate({
-            scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
-        }, 1600, 'easeInOutExpo');
-        $("#v-wall-message").html($("#invalid_username_field").val());
-        $("#v-wall-alert-box").click();
-        return false;
-    }
+    // else if(epage_username == "")
+    // {
+    //     $('html, body').animate({
+    //         scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
+    //     }, 1600, 'easeInOutExpo');
+    //     $("#v-wall-message").html($("#empty_username_field").val());
+    //     $("#v-wall-alert-box").click();
+    //     return false;
+    // }
+    // else if(!vpb_username_is_valid(epage_username))
+    // {
+    //     $('html, body').animate({
+    //         scrollTop: $("#page_username_html").offset().top-parseInt(100)+'px'
+    //     }, 1600, 'easeInOutExpo');
+    //     $("#v-wall-message").html($("#invalid_username_field").val());
+    //     $("#v-wall-alert-box").click();
+    //     return false;
+    // }
     // else if(vpb_trim(epage_email) == "")
     // {
     //     $('html, body').animate({

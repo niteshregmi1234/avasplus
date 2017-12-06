@@ -11,15 +11,11 @@
 </div>
 <br clear="all"><br clear="all">
 
-<div class="vprofile_about_detail" id="page_username_text" style="{{$style_for_view_details}}">
-<div class="vmiddle_about_title">Username</div>
-<div class="vprofile_about_desc">
-{{$data['username']}}</div>
-</div>
-
-<div id="page_username_html" style="{{$style_for_edit}}">
-<span class="input-group-addon vprofile_about_detail_addon">Username</span>
-<input style="border-radius: 0px 0px 0px 0px;" type="text" class="form-control" id="epage_username" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="{{$data['username']}}">
+<div class="vprofile_about_detail" id="page_username_text" style="min-width:100%;display:inline-block;">
+    <div class="vmiddle_about_title">Username</div>
+    <div class="vprofile_about_desc">
+        {{$data['username']}} </div>
+    <div style="clear:both;"></div>
 </div>
 <br clear="all"><br clear="all">
 

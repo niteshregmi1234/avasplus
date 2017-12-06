@@ -27,7 +27,7 @@ Route::get('/', function()
 //{
 //    return View::make('forget-password');
 //});
-Route::get('wall/{email}', 'AccountController@index');
+Route::get('wall/{username}', 'AccountController@index');
 Route::get('login', 'AuthController@login');
 Route::post('login', 'AuthController@loginPost');
 Route::get('sign-up', 'AuthController@signUp');
@@ -44,3 +44,5 @@ Route::post('about', 'AccountController@about');
 Route::post('about-edit', 'AccountController@aboutEditDetail');
 Route::post('search-friends', 'AccountController@searchFriends');
 Route::post('load-friendship-popup', 'AccountController@loadFriendShipPopup');
+Route::post('add-reject-confirm-friends', 'AccountController@addRejectConfirmFriends');
+

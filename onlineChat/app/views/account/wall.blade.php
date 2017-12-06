@@ -15,24 +15,28 @@
 
                         <!-- LEFT BOX STARTS -->
                         <div class="vpb_wall_body_left">
+                            <?php if($username!=Session::get('username')){
 
-                            <div class="vpb_profile_name" onmouseover="vpb_get_user_onmouseover_data('page_owner{{$username}}', '{{$fullname}}', '', 'img/avatar.gif');" onmouseout="vpb_get_user_mouseout_data('page_owner{{$username}}', '{{$fullname}}', '', 'img/avatar.gif');"><span id="p_page_name">{{$fullname}}</span></div>
-                            <!-- Load User Details Starts -->
+                           echo " <div class=\"vpb_profile_name\" onmouseover=\"vpb_get_user_onmouseover_data('page_owner$username','$fullname','$country','img/avatar.gif');\" onmouseout=\"vpb_get_user_mouseout_data('page_owner$username','$fullname','$country','img/avatar.gif');\"><span id=\"p_page_name\">$fullname</span></div>";
+                            }else{
+                        echo "<div class=\"vpb_profile_name\" ><span id=\"p_page_name\">$fullname</span></div>";
+                        }?>
+                                <!-- Load User Details Starts -->
                             <div style="margin-left:120px; position: absolute; z-index:99;">    <div class="dropdown open v_load_user_detail" onmouseover="vpb_get_user_onmouseover_datas();" onmouseout="vpb_get_user_mouseout_datas();" id="vpb_load_user_page_owner{{$username}}" style="text-align:left !important; margin:0px !important;padding:0px !important;">
 
                                     <ul class="dropdown-menu bullet" style="border-radius:0px !important; display:block; margin:15px; z-index:9999;text-align:left !important;margin-top:10px;">
 
                                         <div class="dropdown-header" style="padding:10px !important;text-align:left !important; border:0px solid !important;margin:0px !important;">
                                             <div class="input-group vpb-wall-load-user-detail-wrap">
-    <span class="input-group-addon vpb-wall-load-user-detail-photo" style="cursor:pointer;" onclick="window.location.href='/wall/{{$email}}';">
+    <span class="input-group-addon vpb-wall-load-user-detail-photo" style="cursor:pointer;" onclick="window.location.href='/wall/{{$username}}';">
     <span id="vpb_load_user_photo_page_owner{{$username}}"></span>
     </span>
                                                 <div class="vpb-wall-load-user-detail-others">
-                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='/wall/{{$email}}';"><span id="vpb_load_user_fullname_page_owner{{$username}}"></span></span><br>
+                                                    <span class="vpb-wall-load-user-detail-fullname" onclick="window.location.href='/wall/{{$username}}';"><span id="vpb_load_user_fullname_page_owner{{$username}}"></span></span><br>
                                                     <span style="font-weight:normal !important;" id="vpb_load_user_country_page_owner{{$username}}"></span>
 
-                                                    <input type="hidden" id="vpb_friendship_uid_page_owner{{$username}}" value={{Session::get('email')}}>
-                                                    <input type="hidden" id="vpb_friendship_fid_page_owner{{$username}}" value="niteshregmi143@gmail.com" >
+                                                    <input type="hidden" id="vpb_friendship_uid_page_owner{{$username}}" value={{Session::get('username')}}>
+                                                    <input type="hidden" id="vpb_friendship_fid_page_owner{{$username}}" value="{{$username}}" >
                                                 </div>
                                             </div>
                                         </div>
@@ -40,7 +44,7 @@
                                         <div class="modal-footer" style="padding:10px !important; background-color:#F6F6F6; margin:0px;">
                                             <span id="vpb_load_friendship_page_owner{{$username}}"></span>
 
-                                            <span style="margin-left:16px !important;" class="cbt_friendship" onclick="window.location.href='/wall/{{$email}}';"><i class="fa fa-user"></i> Profile</span>
+                                            <span style="margin-left:16px !important;" class="cbt_friendship" onclick="window.location.href='/wall/{{$username}}';"><i class="fa fa-user"></i> Profile</span>
                                         </div>
                                     </ul>
                                 </div>
@@ -49,9 +53,9 @@
                             <div id="updateProfilePic">
                                 <div class="profilephoto_wrap">
                                     <?php if(empty($profile_pic_name)){?>
-                                        <div class="vprofilephoto" style="background-image: url('/img/avatar.gif');" onClick="vpb_popup_photo_box('{{$email}}', '1', '1', '/img/avatar.gif');">
+                                        <div class="vprofilephoto" style="background-image: url('/img/avatar.gif');" onClick="vpb_popup_photo_box('{{$username}}', '1', '1', '/img/avatar.gif');">
                                     <?php } else {?>
-                                        <div class="vprofilephoto" style="background-image: url('/users/{{$email}}/profilePictures/{{$profile_pic_name}}');" onClick="vpb_popup_photo_box('{{$email}}', '1', '1', '/users/{{$email}}/profilePictures/{{$profile_pic_name}}');">
+                                        <div class="vprofilephoto" style="background-image: url('/users/{{$username}}/profilePictures/{{$profile_pic_name}}');" onClick="vpb_popup_photo_box('{{$username}}', '1', '1', '/users/{{$username}}/profilePictures/{{$profile_pic_name}}');">
                                     <?php }?>
                                     </div>
                                     <div class="vprofilephoto_editer" data-backdrop="static" data-toggle="modal" data-target="#add-profile-photo"><i class="fa fa-camera"></i> Update Photo</div>
@@ -69,9 +73,10 @@
 
         <span id="view_or_edit_button">
         <i class="fa fa-link v_the_iconed"></i> <span class="vpb_hover vview_item" onclick="vpb_show_about_page_owner_details('normal');">View details</span>
+            @if($username==Session::get('username'))
                 <span class="vbreaker_item">|</span> <span class="vedit_item vasplus_tooltip_left" title="Edit" onclick="vpb_show_about_page_owner_details('edit');"><i class="fa fa-pencil"></i></span>
+               @endif
                 </span>
-
                                     </div><div style="clear:both;"></div></div>
                                 <br clear="all"><br clear="all">
                             </div>
@@ -238,11 +243,23 @@
                                             <input type="hidden" id="vpb_total_group_videos_per_load" value="15">
                                             <input type="hidden" id="vtotal_status_updates" value="0">
                                             <input type="hidden" id="vtotal_status_updates_by_comments" value="0">
-                                            <input type="hidden" id="session_uid" value="{{$email}}">
+                                            <input type="hidden" id="session_uid" value="{{$username}}">
                                             <input type="hidden" id="from_username_identity" value="poiuyt123" />
-                                            <input type="hidden" id="vpb_page_owner" value="{{$email}}">
+                                            <input type="hidden" id="vpb_page_owner" value="{{$username}}">
                                             <input type="hidden" id="vpb_page_identifier" value="wallfeeds">
-                                            <input type="hidden" id="vpb_session_pic_page_owner{{$username}}" value="http://www.vasplus.info/photos/1511856000440826458.png" />
+
+                                            <?php if($username!=Session::get('username')){
+                                                if(!empty($profile_pic_name))
+                                               {
+                                                echo "<input type=\"hidden\" id=\"vpb_session_pic_page_owner$username\" value=\"/users/$username/profilePictures/$profile_pic_name\" />";
+                                            }else{
+                                                echo "<input type=\"hidden\" id=\"vpb_session_pic_page_owner$username\" value=\"/img/avatar.gif\" />";
+                                               }
+                                            }?>
+
+                                            {{--<input type="hidden" id="vpb_session_pic_page_owner{{$username}}" value="http://www.vasplus.info/photos/1511856000440826458.png" />--}}
+
+
                                             <input type="hidden" id="wall_video_action" value="">
                                             <input type="hidden" id="v_wall_is_dlt" value="">
                                             <input type="hidden" id="v_wall_is_dltype" value="">
@@ -969,7 +986,7 @@
 
                                             <div class="modal-footer" style="padding-top:10px; padding-bottom:10px;">
                                                 <span class="cbtn" data-dismiss="modal" style=" margin-top:0px; margin-right:20px;" onclick="document.getElementById('profile_pics').title = '';">Close</span>
-                                                <span class="btn btn-default btn btn-success btn-wall-continue"  style="padding-top:5px; padding-bottom:7px;" onClick="vpb_update_profile_picture('{{$email}}');">Save changes</span>
+                                                <span class="btn btn-default btn btn-success btn-wall-continue"  style="padding-top:5px; padding-bottom:7px;" onClick="vpb_update_profile_picture('{{$username}}');">Save changes</span>
                                             </div>
                                         </div>
                                     </div>

@@ -8,11 +8,14 @@
  */
 class ApiAccount extends AbstractApiClient
 {
-    public function aboutPostBy($email,$params) {
-        return $this->postNow("account/$email",$params);
+    public function aboutPostBy($username,$params) {
+        return $this->postNow("account/$username",$params);
     }
-    public function aboutGetBy($email) {
-        return $this->getNow("account/$email");
+    public function aboutGetBy($username) {
+        return $this->getNow("account/$username");
+    }
+    public function friendsPostBy($username,$params) {
+        return $this->postNow("friends/$username",$params);
     }
 
 }

@@ -54,7 +54,7 @@
 
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" class="form-control" name="ue_data" id="ue_data" value="" placeholder="Email" data-placement="top" autocomplete="off" required>
+                                    <input type="text" class="form-control" name="ue_data" id="ue_data" value="" placeholder="Username" data-placement="top" autocomplete="off" required>
                                 </div>
                                 <br clear="all">
 
@@ -122,6 +122,7 @@
         </section>
     </div>
     <input type="hidden" id="empty_email_field" value="Please enter your account email in the required field to proceed.">
+    <input type="hidden" id="empty_username_field" value="Please enter your account username in the required field to proceed.">
     <input type="hidden" id="empty_password_field" value="Please enter your account password in the required field to proceed.">
     @include("footer.footer")
     {{--<script type="text/javascript">--}}

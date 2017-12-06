@@ -8,10 +8,10 @@
                     <div class="vpb_popup_fb_box_c vpb_hover" title="{{$fullname}}" onclick="window.location.href='/wall/{{$email}}';">{{$fullname}}</div>
         <div style="clear:both;"></div>
     </div>
-    <div class="vpb_popup_fb_box_d"><span id="addfriend_12" onclick="vpb_friend_ship('12', 'jeevan', 'addfriend');" class="cbtn"><i class="fa fa-user-plus"></i> Add Friend</span>
+    {{--<div class="vpb_popup_fb_box_d"><span id="addfriend_12" onclick="vpb_friend_ship('12', 'jeevan', 'addfriend');" class="cbtn"><i class="fa fa-user-plus"></i> Add Friend</span>--}}
 
-        <span style="opacity:0.6;cursor:default;display:none;" id="requestsent_12" class="cbtn"><i class="fa fa-reply"></i> Request Sent</span>
+        {{--<span style="opacity:0.6;cursor:default;display:none;" id="requestsent_12" class="cbtn"><i class="fa fa-reply"></i> Request Sent</span>--}}
 
-        <span style="display:none;" title="Cancel Request" id="cancelrequest_12" onclick="vpb_friend_ship('12', 'jeevan', 'cancelrequest');" class="cbtn vpb_cbtn"><i class="fa fa-times"></i></span></div>
-    <div style="clear:both;"></div>
+        {{--<span style="display:none;" title="Cancel Request" id="cancelrequest_12" onclick="vpb_friend_ship('12', 'jeevan', 'cancelrequest');" class="cbtn vpb_cbtn"><i class="fa fa-times"></i></span></div>--}}
+    {{--<div style="clear:both;"></div>--}}
 </div>

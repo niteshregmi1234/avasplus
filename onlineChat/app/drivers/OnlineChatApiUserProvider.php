@@ -40,15 +40,15 @@ class OnlineChatApiUserProvider implements UserProviderInterface
         // TODO: Implement retrieveByCredentials() method.
             if($credentials['page']=="user-log-in"){
         $resp = $this->authApi->authBy(
-            $id = $credentials['email'],
-            $credentials['password']);
+            $id = $credentials['username'],
+            $credentials['passwd']);
             if(!empty($resp["hits"]["hits"])){
                 $respond=$resp["hits"]["hits"][0]["_source"];
                 Session::put($this->getSessionKey($id), $respond);
-                Session::put('fullName', $respond['fullName']);
+                Session::put('fullname', $respond['fullname']);
                 Session::put('email', $credentials['email']);
-                Session::put('password', $credentials['password']);
-                Session::put('userName',  $respond['userName']);
+                Session::put('passwd', $credentials['passwd']);
+                Session::put('username',  $respond['username']);
                 Session::put('profilePicName',  $respond['profilePicName']);
                 Session::put('processCompletedStatus',$respond['process-completed-status']);
                 return new OnlineChatUser($id, $respond);
@@ -56,7 +56,7 @@ class OnlineChatApiUserProvider implements UserProviderInterface
                 return null;
         }
     }else if($credentials['page']=="user-sign-up"){
-            $resp=$this->authApi->signUpAuthBy($id = $credentials['email']);
+            $resp=$this->authApi->signUpAuthBy($id = $credentials['username']);
             if(!empty($resp["hits"]["hits"])){
                 $respond=$resp["hits"]["hits"][0]["_source"];
                 return new OnlineChatUser($id, $respond);

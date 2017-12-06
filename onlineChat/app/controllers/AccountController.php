@@ -17,34 +17,35 @@ class AccountController extends BaseController{
 
      }
 
-    public function index($email) {
-            $datas=$this->authApi->signUpAuthBy($email);
+    public function index($username) {
+            $datas=$this->authApi->signUpAuthBy($username);
             $data=$datas["hits"]["hits"][0]["_source"];
             return View::make('account/wall')->withEmail($data['email'])
-                                             ->withFullname($data['fullName'])
-                                             ->withUsername($data['userName'])
-                                             ->withProfilePicName($data['profilePicName']);
+                                             ->withFullname($data['fullname'])
+                                             ->withUsername($data['username'])
+                                             ->withProfilePicName($data['profilePicName'])
+                                             ->withCountry($data['country']);
     }
     public function updateProfilePic(){
               $formData=Input::all();
 //              $credentials["email"]=Session::get("email");
-              $datas=$this->authApi->signUpAuthBy(Session::get("email"));
+              $datas=$this->authApi->signUpAuthBy(Session::get("username"));
               $credentials=$datas["hits"]["hits"][0]["_source"];
 //              $credentials["password"]=Session::get("password");
               $image=$formData["profilepic"];
-              $profilePicName["profilePicName"]=(new FileUtils())->makeSeparateDirectoryForUsersUsingEmails(Session::get("email"),$image);
+              $profilePicName["profilePicName"]=(new FileUtils())->makeSeparateDirectoryForUsersUsingEmails(Session::get("username"),$image);
               Session::put('profilePicName', $profilePicName["profilePicName"]);
               $credentials["profilePicName"]=Session::get("profilePicName");
               $this->authApi->signUpPost($credentials);
-              $data=$this->authApi->signUpAuthBy($credentials["email"]);
+              $data=$this->authApi->signUpAuthBy($credentials["username"]);
               $response["completed"]=true;
               $response["profilePicName"]=$data["hits"]["hits"][0]["_source"]["profilePicName"];
-              $response["email"]=Session::get("email");
+              $response["username"]=Session::get("username");
               return json_encode($response);
 
     }
     public function about(){
-        $datas=$this->accountApi->aboutGetBy(Input::get('email'));
+        $datas=$this->accountApi->aboutGetBy(Input::get('username'));
         $data=$datas['_source'];
 
         if(Input::get("action")=='normal') {
@@ -70,11 +71,11 @@ class AccountController extends BaseController{
     }
 
     public function aboutEditDetail(){
-        $this->accountApi->aboutPostBy(Input::get('email'),Input::all());
+        $this->accountApi->aboutPostBy(Input::get('username'),Input::all());
         $datas=$this->authApi->signUpAuthBy(Input::get('email'));
         $data=$datas['hits']['hits'][0]['_source'];
-        $data['fullName']=Input::get('fullname');
-        $data['userName']=Input::get('username');
+        $data['fullname']=Input::get('fullname');
+        $data['username']=Input::get('username');
         $this->authApi->signUpPost($data);
         $response["VPB:"]=true;
         $response["response"]="<div class=\"vsuccess\" align=\"left\">The profile information have been updated successfully.</div>";
@@ -88,11 +89,11 @@ class AccountController extends BaseController{
             foreach ($datas as $key=>$value){
 
                 $data=$value["_source"];
-                if($data["email"]!=Session::get('email')){
+                if($data["username"]!=Session::get('username')){
                 $email=$data["email"];
                 $profilePicName=$data["profilePicName"];
-                $username=$data["userName"];
-                $fullname=$data["fullName"];
+                $username=$data["username"];
+                $fullname=$data["fullname"];
                 $response=View::make("search-list")
                     ->withFullname($fullname)
                     ->withEmail($email)
@@ -112,15 +113,27 @@ class AccountController extends BaseController{
         }
 
     }
-
          public  function loadFriendShipPopup(){
         $datas=$this->authApi->signUpAuthBy(Input::get('session_uid'));
         $data=$datas["hits"]["hits"][0]["_source"];
-        $response='<span id="addfriend_1955" onclick="vpb_friend_ship(\'1955\', \'abcdef\', \'addfriend\');" class="cbt_friendship"><i class="fa fa-user-plus"></i> Add Friend</span>
+        $response = "<span id=\"addfriend_$data[username]\" onclick=\"vpb_friend_ship($data[username],'addfriend');\" class=\"cbt_friendship\"><i class=\"fa fa-user-plus\"></i> Add Friend</span>";
 				
-				<span style="opacity:0.6;cursor:default;display:none;" id="requestsent_1955" class="cbt_friendship"><i class="fa fa-reply"></i> Request Sent</span>
-				
-				<span style="display:none;" title="Cancel Request" id="cancelrequest_1955" onclick="vpb_friend_ship(\'1955\', \'abcdef\', \'cancelrequest\');" class="cbt_friendship vpb_cbtn"><i class="fa fa-times"></i></span>';
+//				<span style=\"opacity: 0.6; cursor: default;\" id=\"requestsent_$data[userName]\" class=\"cbt_friendship\"><i class=\"fa fa-reply\"></i> Request Sent</span>
+//
+//				<span style=\"\" title=\"Cancel Request\" id=\"cancelrequest_$data[userName]\" onclick=\"vpb_friend_ship('$data[userName]', '$data[userName]', 'cancelrequest');\" class=\"cbt_friendship vpb_cbtn\"><i class=\"fa fa-times\"></i></span></span>";
         echo $response;
+         }
+         public function addRejectConfirmFriends(){
+                $username=Input::get('username');
+                $addFriend=false;
+                $cancelRequest=false;
+                $confirmFriend=false;
+                $deleteFriend=false;
+                $blockFriend=false;
+                $param=["addFriend"=>$addFriend,"cancelRequest"=>$cancelRequest,'confirmFriend'=>$confirmFriend,'deleteFriend'=>$deleteFriend,'blockFriend'=>$blockFriend];
+                $params=array($username=>$param);
+                $this->accountApi->friendsPostBy(Session::get('username'),$params);
+
+
          }
 }

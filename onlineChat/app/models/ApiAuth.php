@@ -9,30 +9,25 @@
 class ApiAuth extends AbstractApiClient
 {
 
-    public function authBy($email, $password) {
-        return $this->getNow("authByEmailPass/_search?q=_id:"."\"".$email.":".$password."\"");
+    public function authBy($username, $password) {
+        return $this->getNow("authByEmailPass/_search?q=_id:"."\"".$username.":".$password."\"");
     }
-    public function signUpAuthBy($email) {
-        return $this->getNow("authByEmailPass/_search?q=email:"."\"".$email."\"");
+    public function signUpAuthBy($username) {
+        return $this->getNow("authByEmailPass/_search?q=username:"."\"".$username."\"");
     }
     public function signUpPost($credentials) {
-        return $this->postNow("authByEmailPass/".$credentials["email"].":".$credentials["password"],$credentials);
+        return $this->postNow("authByEmailPass/".$credentials["username"].":".$credentials["password"],$credentials);
     }
     public function authByCode($codeName,$code) {
         return $this->getNow("authByEmailPass/_search?q=$codeName:"."\"".$code."\"");
     }
     public function deleteOldRecordAfterChangingPass($credentials) {
-        return $this->deleteNow("authByEmailPass/".$credentials["email"].":".$credentials["password"]);
+        return $this->deleteNow("authByEmailPass/".$credentials["username"].":".$credentials["password"]);
     }
     public function searchGetBy($username) {
-        return $this->getNow("authByEmailPass/_search?q=userName:$username*");
+        return $this->getNow("authByEmailPass/_search?q=username:$username*");
     }
-//    public function profilePicPostBy($email,$params) {
-//        return $this->postNow("api/$email",$params);
-//    }
-//    public function profilePicGetBy($email) {
-//        return $this->getNow("api/$email");
-//    }
+
     public function validateEmail($email) {
         function get_curl($url)
         {

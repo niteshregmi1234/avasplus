@@ -56,11 +56,6 @@
                             </div>
                             <br clear="all">
 
-                            <div class="input-group">
-                                <span class="input-group-addon" style="min-width:136px;">Your Username</span>
-                                <input type="text" class="form-control" name="susername" id="susername" value="" placeholder="Enter a desired username here..." data-placement="top" autocomplete="off" required>
-                            </div>
-                            <br clear="all">
 
                             <div class="input-group">
                                 <span class="input-group-addon" style="min-width:136px;">Email Address</span>

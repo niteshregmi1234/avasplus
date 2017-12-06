@@ -10,6 +10,7 @@ class AuthController extends BaseController
 {
     protected $authApi;
     protected $accountApi;
+
     public function __construct() {
         // Instantiate the APIs the controller will use which is placed in model.
         $this->authApi = new ApiAuth();
@@ -19,22 +20,22 @@ class AuthController extends BaseController
         return View::make('login');
     }
     public function loginPost(){
-        if (Auth::attempt(array('email' => Input::get('ue_data'),'password'=>Input::get('uep_data'),"page"=>Input::get("page")))) {
+        if (Auth::attempt(array('username' => Input::get('ue_data'),'passwd'=>Input::get('uep_data'),"page"=>Input::get("page")))) {
             if(Session::get("processCompletedStatus")) {
                 $arr = array(
-                    "fullname" => Session::get('fullName'),
+                    "fullname" => Session::get('fullname'),
                     "email" => Session::get('email'),
-                    "passwd" => Session::get('password'),
-                    "username" => Session::get('userName'),
+                    "passwd" => Session::get('passwd'),
+                    "username" => Session::get('username'),
                     "processCompletedStatus" => true
                 );
                 echo json_encode($arr);
             }else{
                 $arr = array(
-                    "fullname" => Session::get('fullName'),
+                    "fullname" => Session::get('fullname'),
                     "email" => Session::get('email'),
-                    "passwd" => Session::get('password'),
-                    "username" => Session::get('userName'),
+                    "passwd" => Session::get('passwd'),
+                    "username" => Session::get('username'),
                     "processCompletedStatus" => false
                 );
                 echo json_encode($arr);
@@ -81,18 +82,19 @@ class AuthController extends BaseController
                ->withCountry($country);
     }
     public function signUpPost(){
-        if(Auth::attempt(array('email' => Input::get('semail'),"page"=>Input::get("page")))){
+        $username= explode("@",Input::get('semail'))[0];
+        if(Auth::attempt(array('susername' => $username,"page"=>Input::get("page")))){
             $email=Input::get('semail');
             $response="<div class=\"vwarning\">Sorry, the email address: <b>$email</b> is already in use with another account and duplicate email addresses are not allowed.<br>Please login with the existing account if you already have an account or enter a different email address to proceed.</div>";
             echo $response;
         }else{
-              $credentials=array('fullName' => Input::get('sfullname'),'userName' => Input::get('susername'),'email' => Input::get('semail'),'password'=>Input::get('spass'),'country'=>Input::get('vpb_ucounty'),"process-completed-status"=>false);
+              $credentials=array('fullname' => Input::get('sfullname'),'username' => $username,'email' => Input::get('semail'),'passwd'=>Input::get('spass'),'country'=>Input::get('vpb_ucounty'),"process-completed-status"=>false);
               $is_email_exists=$this->authApi->validateEmail($credentials['email']);
               if($is_email_exists){
                   $date= date("Y/m/d");
                   $dateWithTime = (new DateTime("now",new DateTimeZone("Asia/kathmandu")))->format("F j, Y, g:i:s a");
-                  $fullName=$credentials["fullName"];
-                  $userName=$credentials["userName"];
+                  $fullname=$credentials["fullname"];
+                  $username=$credentials["username"];
                   $email=$credentials["email"];
                   $code=md5(rand(1000,99999999));
                   $credentials["code"]=$code;
@@ -120,7 +122,7 @@ class AuthController extends BaseController
                      <tr>
                      <td width=\"20\">&nbsp;</td>
                      <td width=\"610\">
-                     <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullName,</p>
+                     <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullname,</p>
                      </td>
                      <td width=\"20\">&nbsp;</td>
                      </tr>
@@ -131,8 +133,8 @@ class AuthController extends BaseController
                      
                      Below are your account details.<br><br>
                      
-                     Fullname: $fullName<br>
-                     Username: $userName<br>
+                     Fullname: $fullname<br>
+                     Username: $username<br>
                      Email Address: $email<br>
                      Password: The password you provided during your account creation.<br><br>
                      
@@ -176,7 +178,7 @@ class AuthController extends BaseController
                 $is_data["hits"]["hits"][0]["_source"]["code"]=null;
                 $data=$is_data["hits"]["hits"][0]["_source"];
                 $this->authApi->signUpPost($is_data["hits"]["hits"][0]["_source"]);
-                $params=array('email'=>$data['email'],'fullname'=>$data['fullName'],'username'=>$data['userName'],
+                $params=array('email'=>$data['email'],'fullname'=>$data['fullname'],'username'=>$data['username'],
                 'vpb_page_owner'=>$data['email'],'about_us'=>null,'favorite_quotes'=>null,'marital_status'=>null,
                     'address'=>null,  'phone'=>null,  'gender'=>null,  'interested_in'=>null,  'day'=>null,  'month'=>null,
                     'year'=>null,  'birth_date_privacy'=>null,  'company'=>null, 'job_position'=>null,  'professional_skill'=>null,
@@ -184,8 +186,8 @@ class AuthController extends BaseController
                     'college_name'=>null,  'started_college_from_date'=>'--', 'ended_college_at_date'=>'--',  'from_city_name'=>null,
                     'lives_in_city_name'=>null,  'language'=>null,  'religion'=>null,  'politicl_view'=>null,  'country'=>null,  'page'=>null
                 );
-                $this->accountApi->aboutPostBy(Session::get('email'),$params);
-                return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["email"]);
+                $this->accountApi->aboutPostBy(Session::get('username'),$params);
+                return Redirect::to("wall/" . $is_data["hits"]["hits"][0]["_source"]["username"]);
 
         }else{
 
@@ -201,7 +203,8 @@ class AuthController extends BaseController
     public function forgetPasswordPost(){
 
             $email=$_POST["ue_data"];
-            $is_data=$this->authApi->signUpAuthBy($email);
+            $username= explode("@",Input::get('semail'))[0];
+            $is_data=$this->authApi->signUpAuthBy($username);
             if(!empty($is_data["hits"]["hits"])) {
                 if (!$is_data["hits"]["hits"][0]["_source"]["process-completed-status"]){
                     $response["processCompletedStatus"]=false;
@@ -210,7 +213,7 @@ class AuthController extends BaseController
                     $credentials=$is_data["hits"]["hits"][0]["_source"];
                     $date= date("Y/m/d");
                     $dateWithTime = (new DateTime("now",new DateTimeZone("Asia/kathmandu")))->format("F j, Y, g:i:s a");
-                    $fullName=$credentials["fullName"];
+                    $fullname=$credentials["fullname"];
                     $code=md5(rand(100,9999999999));
                     $body="<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
                                <tbody><tr>
@@ -239,7 +242,7 @@ class AuthController extends BaseController
                                <tr>
                                <td width=\"20\">&nbsp;</td>
                                <td width=\"610\">
-                               <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullName,</p>
+                               <p style=\"font-family:Arial;font-size:20px;margin-bottom:0.5em;margin-top:0\">Dear $fullname,</p>
                                </td>
                                <td width=\"20\">&nbsp;</td>
                                </tr>
@@ -286,22 +289,21 @@ class AuthController extends BaseController
             $credentials=$is_data["hits"]["hits"][0]["_source"];
             $credentials["password-reset-code"]=null;
             $this->authApi->signUpPost($credentials);
-            return View::make("new-password")->withFullname($credentials["fullName"])
-                                             ->withEmail($credentials["email"]);
+            return View::make("new-password")->withFullname($credentials["fullname"])
+                                             ->withUsername($credentials["username"]);
             }else{
             return "Bad Request";
         }
     }
     public function newPasswordPost(){
 
-            $email=Input::get("ue_data");
+            $username=Input::get("ue_data");
             $newPasssword=Input::get("new_pass");
-            $is_data=$this->authApi->signUpAuthBy($email);
+            $is_data=$this->authApi->signUpAuthBy($username);
             $credentials=$is_data["hits"]["hits"][0]["_source"];
             $this->authApi->deleteOldRecordAfterChangingPass($credentials);
-            $credentials["password"]=$newPasssword;
+            $credentials["passwd"]=$newPasssword;
             $this->authApi->signUpPost($credentials);
-            var_dump($email);
             $response["processCompletedStatus"]=true;
             echo json_encode($response);
     }
