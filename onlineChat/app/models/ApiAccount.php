@@ -15,7 +15,14 @@ class ApiAccount extends AbstractApiClient
         return $this->getNow("account/$username");
     }
     public function friendsPostBy($username,$params) {
-        return $this->postNow("friends/$username",$params);
+        return $this->postNow("friendsss/$username",$params);
+    }
+    public function friendsGetBySessionUsername($username) {
+       return $this->getNow("friendsss/_search?q=_id:"."\"".$username."\"");
+    }
+    public function friendsGetBy($username) {
+            return $this->getNow("friendsss/_search?q=username:"."\"".$username."\"");
+
     }
 
 }

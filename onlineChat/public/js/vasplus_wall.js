@@ -3516,9 +3516,9 @@ function vpb_add_photos_to_post(id)
 
 
 //Friendship function
-function vpb_friend_ship(username, action)
+function vpb_friend_ship(action)
 {
-    // var username = $("#session_uid").val();
+    var username = $("#session_uid").val();
 
     if(username == "")
     {
@@ -3573,22 +3573,22 @@ function vpb_friend_ship(username, action)
         {
             var dataString = {"username":username, "action":action, "page":"friend-ship-update"};
 
-            $.post(vpb_site_url+'wall-processor.php', dataString,  function(response)
+            $.post(vpb_site_url+'add-reject-confirm-friends', dataString,  function(response)
             {
                 //alert(username+' '+friend+' '+action+' '+response);
 
-                var response_brought = response.indexOf('process_completed');
-                if( response_brought !=- 1 ) {}
-                else
-                {
-                    $("#v-wall-message").html($("#general_system_error").val());
-                    $("#v-wall-alert-box").click();
-                    return false;
-                }
-                vpb_load_chat_friends_box('auto');
+                // var response_brought = response.indexOf('process_completed');
+                // if( response_brought !=- 1 ) {}
+                // else
+                // {
+                //     $("#v-wall-message").html($("#general_system_error").val());
+                //     $("#v-wall-alert-box").click();
+                //     return false;
+                // }
+                // vpb_load_chat_friends_box('auto');
             }).fail(function(error_response)
             {
-                setTimeout("vpb_friend_ship('"+friend+"', '"+action+"');", 10000);
+                setTimeout("vpb_friend_ship('"+action+"');", 10000);
             });
         }
     }
@@ -4504,6 +4504,7 @@ function vpb_search_for_friends()
         $.post(vpb_site_url+'search-friends', dataString,  function(response)
         {
             //completedSearchRequest = false;
+            console.log(response)
             var response_brought = response.indexOf('VPB:');
             if(response_brought == -1)
             {
@@ -4516,14 +4517,14 @@ function vpb_search_for_friends()
             else
             {
                 var vlog=JSON.parse(response)
-                if(response == "")
-                {
-                    $("#vpb_display_search_results").hide();
-                }
-                else
-                {
+                // if(response == "")
+                // {
+                //     $("#vpb_display_search_results").hide();
+                // }
+                // else
+                // {
                     $("#vpb_display_search_results").show().html('<ul id="v_search_results_box" class="dropdown-menu open bullet pull-center vasplus_bosy" style="right: auto; left: 0px; border-radius:0px; border-top:1px solid #E1E1E1; font-size:13px !important; font-family:arial !important;width:100%; display:block;" aria-labelledby="v_search_results_box"><li class="dropdown-header dropdown-header-plus vthe_inner" style=" padding-top:0px !important; padding-bottom:0px !important;">'+vlog.message+'</li></ul>');
-                }
+                // }
             }
 
         }).fail(function(error_response)
@@ -5267,7 +5268,7 @@ function vpb_show_about_page_owner_details(action)
         scrollTop: $("#vasplus_about_page_owner").offset().top-parseInt(100)+'px'
     }, 1600, 'easeInOutExpo');
 
-    var dataString = {'email':session_uid, 'vpb_page_owner':vpb_page_owner, 'action':action, 'page':'vpb_get_about_page_owner_detail'};
+    var dataString = {'username':session_uid, 'vpb_page_owner':vpb_page_owner, 'action':action, 'page':'vpb_get_about_page_owner_detail'};
 
     $.post(vpb_site_url+'about', dataString,  function(response)
 

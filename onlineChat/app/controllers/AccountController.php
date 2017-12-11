@@ -89,21 +89,93 @@ class AccountController extends BaseController{
             foreach ($datas as $key=>$value){
 
                 $data=$value["_source"];
-                if($data["username"]!=Session::get('username')){
-                $email=$data["email"];
                 $profilePicName=$data["profilePicName"];
-                $username=$data["username"];
                 $fullname=$data["fullname"];
-                $response=View::make("search-list")
-                    ->withFullname($fullname)
-                    ->withEmail($email)
-                    ->withUsername($username)
-                    ->withProfilePicName($profilePicName)
-                    ->render();
-                echo $response;
-            }
+                if($data["username"]!=Session::get('username')){
+                $datass=$this->accountApi->friendsGetBySessionUsername(Session::get('username'));
+                    if($datass["hits"]["total"]>0)
+                    {
+                        $data_i=$datass["hits"]["hits"]["0"]['_source'];
+                        foreach ($data_i as $key_i=>$value_i){
+                            if($key_i==$data["username"]){
+                                if($value_i['addFriend']==true){
+                                    if($value_i['confirmFriend']==true){
+                                        $response=View::make("search-list")
+                                            ->withFullname($fullname)
+                                            ->withProfilePicName($profilePicName)
+                                            ->withUsername($data["username"])
+                                            ->withAddFriendDisplay("none")
+                                            ->withCancelDisplay("none")
+                                            ->withUnfriendDisplay("inline")
+                                            ->render();
+                                        echo $response;
+                                    }elseif($value_i['cancelRequest']==false){
+                                        $response=View::make("search-list")
+                                            ->withFullname($fullname)
+                                            ->withProfilePicName($profilePicName)
+                                            ->withUsername($data["username"])
+                                            ->withAddFriendDisplay("none")
+                                            ->withCancelDisplay("inline")
+                                            ->withUnfriendDisplay("none")
+                                            ->render();
+                                        echo $response;
+                                    }else{
+                                        $response=View::make("search-list")
+                                            ->withFullname($fullname)
+                                            ->withProfilePicName($profilePicName)
+                                            ->withUsername($data["username"])
+                                            ->withAddFriendDisplay("inline")
+                                            ->withCancelDisplay("none")
+                                            ->withUnfriendDisplay("none")
+                                            ->render();
+                                        echo $response;
+                                    }
 
-            }
+                                }else{
+                                    $response=View::make("search-list")
+                                        ->withFullname($fullname)
+                                        ->withProfilePicName($profilePicName)
+                                        ->withUsername($data["username"])
+                                        ->withAddFriendDisplay("inline")
+                                        ->withCancelDisplay("none")
+                                        ->withUnfriendDisplay("none")
+                                        ->render();
+                                    echo $response;
+                                }
+
+                            }else{
+                                $response=View::make("search-list")
+                                    ->withFullname($fullname)
+                                    ->withProfilePicName($profilePicName)
+                                    ->withUsername($data["username"])
+                                    ->withAddFriendDisplay("inline")
+                                    ->withCancelDisplay("none")
+                                    ->withUnfriendDisplay("none")
+                                    ->render();
+                                echo $response;
+                            }
+                        }
+                    }else{
+                        $response=View::make("search-list")
+                            ->withFullname($fullname)
+                            ->withProfilePicName($profilePicName)
+                            ->withUsername($data["username"])
+                            ->withAddFriendDisplay("inline")
+                            ->withCancelDisplay("none")
+                            ->withUnfriendDisplay("none")
+                            ->render();
+                        echo $response;
+                    }
+
+//                $response=View::make("search-list")
+//                    ->withFullname($fullname)
+//                    ->withProfilePicName($profilePicName)
+//                    ->render();
+//                echo $response;
+            }else{
+                $response="";
+                echo $response;
+            }}
 
 //
         }else{
@@ -114,18 +186,72 @@ class AccountController extends BaseController{
 
     }
          public  function loadFriendShipPopup(){
-        $datas=$this->authApi->signUpAuthBy(Input::get('session_uid'));
-        $data=$datas["hits"]["hits"][0]["_source"];
-        $response = "<span id=\"addfriend_$data[username]\" onclick=\"vpb_friend_ship($data[username],'addfriend');\" class=\"cbt_friendship\"><i class=\"fa fa-user-plus\"></i> Add Friend</span>";
-				
-//				<span style=\"opacity: 0.6; cursor: default;\" id=\"requestsent_$data[userName]\" class=\"cbt_friendship\"><i class=\"fa fa-reply\"></i> Request Sent</span>
-//
-//				<span style=\"\" title=\"Cancel Request\" id=\"cancelrequest_$data[userName]\" onclick=\"vpb_friend_ship('$data[userName]', '$data[userName]', 'cancelrequest');\" class=\"cbt_friendship vpb_cbtn\"><i class=\"fa fa-times\"></i></span></span>";
-        echo $response;
-         }
+        $datas=$this->accountApi->friendsGetBySessionUsername(Session::get('username'));
+       if($datas["hits"]["total"]>0)
+       {
+           $data=$datas["hits"]["hits"]["0"]['_source'];
+           foreach ($data as $key=>$value){
+               if($key==Input::get('session_uid')){
+                   if($value['addFriend']==true){
+                       if($value['confirmFriend']==true){
+                           $response=View::make("account/partial/friendship-button")
+                               ->withUsername(Input::get('session_uid'))
+                               ->withAddFriendDisplay("none")
+                               ->withCancelDisplay("none")
+                               ->withUnfriendDisplay("inline")
+                               ->render();
+                           echo $response;
+                       }elseif($value['cancelRequest']==false){
+                           $response=View::make("account/partial/friendship-button")
+                               ->withUsername(Input::get('session_uid'))
+                               ->withAddFriendDisplay("none")
+                               ->withCancelDisplay("inline")
+                               ->withUnfriendDisplay("none")
+                               ->render();
+                           echo $response;
+                       }else{
+                           $response=View::make("account/partial/friendship-button")
+                               ->withUsername(Input::get('session_uid'))
+                               ->withAddFriendDisplay("inline")
+                               ->withCancelDisplay("none")
+                               ->withUnfriendDisplay("none")
+                               ->render();
+                           echo $response;
+                       }
+
+                   }else{
+                       $response=View::make("account/partial/friendship-button")
+                           ->withUsername(Input::get('session_uid'))
+                           ->withAddFriendDisplay("inline")
+                           ->withCancelDisplay("none")
+                           ->withUnfriendDisplay("none")
+                           ->render();
+                       echo $response;
+                   }
+
+               }else{
+                   $response=View::make("account/partial/friendship-button")
+                       ->withUsername(Input::get('session_uid'))
+                       ->withAddFriendDisplay("inline")
+                       ->withCancelDisplay("none")
+                       ->withUnfriendDisplay("none")
+                       ->render();
+                   echo $response;
+               }
+           }
+       }else{
+           $response=View::make("account/partial/friendship-button")
+               ->withUsername(Input::get('session_uid'))
+               ->withAddFriendDisplay("inline")
+               ->withCancelDisplay("none")
+               ->withUnfriendDisplay("none")
+               ->render();
+               echo $response;
+       }}
+
          public function addRejectConfirmFriends(){
                 $username=Input::get('username');
-                $addFriend=false;
+                $addFriend=true;
                 $cancelRequest=false;
                 $confirmFriend=false;
                 $deleteFriend=false;
@@ -133,7 +259,5 @@ class AccountController extends BaseController{
                 $param=["addFriend"=>$addFriend,"cancelRequest"=>$cancelRequest,'confirmFriend'=>$confirmFriend,'deleteFriend'=>$deleteFriend,'blockFriend'=>$blockFriend];
                 $params=array($username=>$param);
                 $this->accountApi->friendsPostBy(Session::get('username'),$params);
-
-
          }
 }

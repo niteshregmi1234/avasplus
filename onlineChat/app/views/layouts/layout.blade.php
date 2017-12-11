@@ -47,14 +47,14 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="user-d-s">
-                    <a href="/wall/{{Session::get("email")}}" id="o_p_page_first_name" title="{{Session::get("fullName")}}">
+                    <a href="/wall/{{Session::get("username")}}" id="o_p_page_first_name" title="{{Session::get("fullname")}}">
                         <div class="vpb_profile_picture_icon_wrapper">
                             <?php if(empty(Session::get("profilePicName"))){?>
                             <span id="vp_profile_photo"><img src="/img/avatar.gif" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php } else {?>
                             <span id="vp_profile_photo"><img src="/users/{{Session::get('username')}}/profilePictures/{{Session::get('profilePicName')}}" border="0" width="30" height="26" align="absmiddle" /></span>
                             <?php }?>
-                                    <span id="p_page_first_name">{{explode(" ",Session::get("fullName"))[0]}}</span>
+                                    <span id="p_page_first_name">{{explode(" ",Session::get("fullname"))[0]}}</span>
                             <div style="clear:both;"></div>
                         </div>
                     </a>

@@ -355,8 +355,8 @@
                                                         <!-- Status Update Textarea Box -->
                                                         <div class="input-group" style="vertical-align:top;">
                                                             <span class="input-group-addon stay-up" style="">
-                                                                <a href="/wall/{{Session::get("email")}}">
-                                                                    <span id="vp_profile_wall_photo" title="{{Session::get("fullName")}}">
+                                                                <a href="/wall/{{Session::get("username")}}">
+                                                                    <span id="vp_profile_wall_photo" title="{{Session::get("fullname")}}">
                                                                         <?php if(empty(Session::get("profilePicName"))){?>
                                                                             <img src="/img/avatar.gif" width="40" height="40" border="0">
                                                                         <?php } else { ?>

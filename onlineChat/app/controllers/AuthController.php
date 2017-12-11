@@ -83,8 +83,8 @@ class AuthController extends BaseController
     }
     public function signUpPost(){
         $username= explode("@",Input::get('semail'))[0];
-        if(Auth::attempt(array('susername' => $username,"page"=>Input::get("page")))){
-            $email=Input::get('semail');
+        $email=Input::get('semail');
+        if(Auth::attempt(array('username' => $username,"page"=>Input::get("page")))){
             $response="<div class=\"vwarning\">Sorry, the email address: <b>$email</b> is already in use with another account and duplicate email addresses are not allowed.<br>Please login with the existing account if you already have an account or enter a different email address to proceed.</div>";
             echo $response;
         }else{

@@ -420,7 +420,7 @@ function vpb_sign_up()
 	}
 	else
 	{
-		var dataString = {"sfullname":sfullname, "susername":susername, "semail":semail, "spass":spass, "vpb_ucounty":vpb_ucounty, "page":"user-sign-up"};
+		var dataString = {"sfullname":sfullname, "semail":semail, "spass":spass, "vpb_ucounty":vpb_ucounty, "page":"user-sign-up"};
 		
 		
 		$("#this_page_errors").html('');
@@ -454,12 +454,12 @@ function vpb_sign_up()
 					if(vpb_IE_detected())
 					{
 
-						vpb_setcookie('session_user_datas', susername, 90);
+						// vpb_setcookie('session_user_datas', susername, 90);
                         vpb_setcookie('ue_datas', semail, 90);
 						vpb_setcookie('uep_datas', spass, 90);
 					}
 					else { }
-					vpb_setcookie('session_user_data', susername, 90);
+					// vpb_setcookie('session_user_data', susername, 90);
 					vpb_setcookie('uep_data', spass, 1);
 					// vpb_setcookie('user_status_data', susername, 90);
 					vpb_setcookie('csname', sfullname, 90);

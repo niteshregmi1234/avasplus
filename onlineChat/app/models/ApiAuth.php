@@ -16,16 +16,16 @@ class ApiAuth extends AbstractApiClient
         return $this->getNow("authByEmailPass/_search?q=username:"."\"".$username."\"");
     }
     public function signUpPost($credentials) {
-        return $this->postNow("authByEmailPass/".$credentials["username"].":".$credentials["password"],$credentials);
+        return $this->postNow("authByEmailPass/".$credentials["username"].":".$credentials["passwd"],$credentials);
     }
     public function authByCode($codeName,$code) {
         return $this->getNow("authByEmailPass/_search?q=$codeName:"."\"".$code."\"");
     }
     public function deleteOldRecordAfterChangingPass($credentials) {
-        return $this->deleteNow("authByEmailPass/".$credentials["username"].":".$credentials["password"]);
+        return $this->deleteNow("authByEmailPass/".$credentials["username"].":".$credentials["passwd"]);
     }
-    public function searchGetBy($username) {
-        return $this->getNow("authByEmailPass/_search?q=username:$username*");
+    public function searchGetBy($friend) {
+        return $this->getNow("authByEmailPass/_search?q=username:$friend*");
     }
 
     public function validateEmail($email) {
@@ -40,7 +40,7 @@ class ApiAuth extends AbstractApiClient
             return $result;
         }
 
-        $apikey = "live_e0151a0d127ea1873e1aed8c7dd13a3af6309fb96a6f672ad683f4e3406895ea";
+        $apikey = "live_ec0e70ece77b830b6b9297b5a026bd6d5e00765c22ff21bece51440b696c6ffa";
         $url = 'https://api.kickbox.io/v2/verify?email='.$email.'&apikey='.$apikey;
         $response = get_curl($url);
         if($response["result"]=='undeliverable'){
@@ -52,7 +52,7 @@ class ApiAuth extends AbstractApiClient
     public function sendMail($credentials,$body) {
         $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
             ->setUsername('niteshxxkkiller@gmail.com')
-            ->setPassword('************');
+            ->setPassword('candycrush2');
         $mailer = Swift_Mailer::newInstance($transport);
         $message = Swift_Message::newInstance('Verification Code')
             ->setFrom(array('niteshxxkkiller@gmail.com'))
